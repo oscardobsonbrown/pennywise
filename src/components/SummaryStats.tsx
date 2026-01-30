@@ -64,7 +64,7 @@ export function SummaryStats({ returns }: Props) {
       : years[0]?.toString() ?? "";
 
   return (
-    <div className="p-6 pb-0 font-mono">
+    <div className="p-6 pb-0 font-mono flex-shrink-0">
       <div className="border border-[var(--color-border)] grid grid-cols-4">
         {stats.map((stat, i) => (
           <div

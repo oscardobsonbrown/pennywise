@@ -28,18 +28,18 @@ export function MainPanel(props: Props) {
         )}
       </header>
 
-      <div className="flex-1 overflow-y-auto">
-        {props.view === "summary" ? (
-          <>
-            <SummaryStats returns={props.returns} />
-            <div className="overflow-x-auto">
-              <SummaryTable returns={props.returns} />
-            </div>
-          </>
-        ) : (
+      {props.view === "summary" ? (
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <SummaryStats returns={props.returns} />
+          <div className="flex-1 overflow-auto">
+            <SummaryTable returns={props.returns} />
+          </div>
+        </div>
+      ) : (
+        <div className="flex-1 overflow-y-auto">
           <ReceiptView data={props.data} />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
