@@ -96,7 +96,7 @@ export function MainPanel(props: Props) {
                     Settings
                   </Menu.Item>
                   <Menu.Item
-                    onClick={() => window.open("https://github.com/brianlovin/tax-return-ui", "_blank")}
+                    onClick={() => window.open("https://github.com/brianlovin/tax-ui", "_blank")}
                     className={menuItemClassName}
                   >
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" className="opacity-60">
