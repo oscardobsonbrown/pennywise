@@ -1,8 +1,10 @@
 import { useMemo } from "react";
 import { createColumnHelper, type ColumnDef } from "@tanstack/react-table";
 import type { TaxReturn } from "../lib/schema";
-import { formatCurrency, formatPercent, formatPercentChange } from "../lib/format";
+import { formatCurrency, formatPercent } from "../lib/format";
+import { getTotalTax } from "../lib/tax-calculations";
 import { Table, type ColumnMeta } from "./Table";
+import { ChangeCell } from "./ChangeCell";
 
 interface Props {
   returns: Record<number, TaxReturn>;
@@ -15,10 +17,6 @@ interface SummaryRow {
   isHeader?: boolean;
   values: Record<number, number | undefined>;
   invertPolarity?: boolean;
-}
-
-function getTotalTax(data: TaxReturn): number {
-  return data.federal.tax + data.states.reduce((sum, s) => sum + s.tax, 0);
 }
 
 function collectRows(returns: Record<number, TaxReturn>): SummaryRow[] {
@@ -34,7 +32,8 @@ function collectRows(returns: Record<number, TaxReturn>): SummaryRow[] {
   ) => {
     const values: Record<number, number | undefined> = {};
     for (const year of years) {
-      values[year] = getValue(returns[year]);
+      const data = returns[year];
+      if (data) values[year] = getValue(data);
     }
     rows.push({
       id: `${category}-${label}-${rows.length}`,
@@ -221,34 +220,6 @@ function formatValue(value: number | undefined, isRate: boolean): string {
   return formatCurrency(value);
 }
 
-function ChangeCell({
-  current,
-  previous,
-  invertPolarity,
-}: {
-  current: number | undefined;
-  previous: number | undefined;
-  invertPolarity?: boolean;
-}) {
-  if (current === undefined || previous === undefined || previous === 0) {
-    return null;
-  }
-
-  const change = ((current - previous) / Math.abs(previous)) * 100;
-  const isPositive = change >= 0;
-  const isGood = invertPolarity ? !isPositive : isPositive;
-
-  return (
-    <span className={`text-xs font-medium px-1.5 py-0.5 rounded-full ${
-      isGood
-        ? "text-emerald-600 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950"
-        : "text-rose-600 bg-rose-50 dark:text-rose-400 dark:bg-rose-950"
-    }`}>
-      {formatPercentChange(current, previous)}
-    </span>
-  );
-}
-
 const columnHelper = createColumnHelper<SummaryRow>();
 
 export function SummaryTable({ returns }: Props) {
@@ -259,19 +230,27 @@ export function SummaryTable({ returns }: Props) {
   const rows = useMemo(() => collectRows(returns), [returns]);
 
   const columns = useMemo(() => {
-    const cols: ColumnDef<SummaryRow, unknown>[] = [
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const cols: ColumnDef<SummaryRow, any>[] = [
       columnHelper.accessor("label", {
         header: "Line Item",
         cell: (info) => {
           const row = info.row.original;
           if (row.isHeader) {
             return (
-              <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">
-                {row.label}
-              </span>
+              <div className="pt-2">
+                <span className="text-xs text-[var(--color-text-muted)]">
+                  {row.label}
+                </span>
+              </div>
             );
           }
-          return <span className="text-[var(--color-text)]">{info.getValue()}</span>;
+          const hasNegativeValue = Object.values(row.values).some(v => v !== undefined && v < 0);
+          return (
+            <span className={hasNegativeValue ? "text-[var(--color-text-muted)]" : "text-[var(--color-text)]"}>
+              {info.getValue()}
+            </span>
+          );
         },
         meta: {
           sticky: true,
@@ -287,18 +266,24 @@ export function SummaryTable({ returns }: Props) {
       cols.push(
         columnHelper.accessor((row) => row.values[year], {
           id: `year-${year}`,
-          header: () => <span className="font-mono">{year}</span>,
+          header: () => <span className="tabular-nums">{year}</span>,
           cell: (info) => {
             const row = info.row.original;
-            if (row.isHeader) return null;
+            if (row.isHeader) {
+              return null;
+            }
 
             const value = info.getValue() as number | undefined;
             const isRate = row.category === "Rates";
             const prevValue = prevYear !== undefined ? row.values[prevYear] : undefined;
 
+            const isNegative = value !== undefined && value < 0;
+
             return (
-              <div className="text-right tabular-nums font-mono flex items-center justify-end gap-2">
-                <span className="text-[var(--color-text)]">{formatValue(value, isRate)}</span>
+              <div className="text-right tabular-nums flex items-center justify-end gap-2">
+                <span className={isNegative ? "text-[var(--color-text-muted)]" : "text-[var(--color-text)]"}>
+                  {formatValue(value, isRate)}
+                </span>
                 {prevYear !== undefined && (
                   <ChangeCell
                     current={value}
@@ -321,9 +306,16 @@ export function SummaryTable({ returns }: Props) {
     return cols;
   }, [years]);
 
+  const getRowClassName = (row: SummaryRow) => {
+    if (row.isHeader && row.category !== "Monthly Breakdown") {
+      return "border-t border-[var(--color-border)]";
+    }
+    return "";
+  };
+
   return (
-    <div className="p-6 text-sm">
-      <Table data={rows} columns={columns} storageKey="summary-table" />
+    <div className="text-sm w-full h-full">
+      <Table data={rows} columns={columns} storageKey="summary-table" getRowClassName={getRowClassName} />
     </div>
   );
 }

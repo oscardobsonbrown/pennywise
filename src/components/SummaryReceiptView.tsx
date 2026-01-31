@@ -1,12 +1,10 @@
 import { useMemo, useState } from "react";
 import type { TaxReturn } from "../lib/schema";
 import { formatPercent } from "../lib/format";
-import { getEffectiveRate } from "../lib/tax-calculations";
+import { aggregateSummary } from "../lib/summary";
 import { type TimeUnit, TIME_UNIT_LABELS, convertToTimeUnit, formatTimeUnitValue } from "../lib/time-units";
 import { Row, RateRow } from "./Row";
 import { Separator, DoubleSeparator, SectionHeader } from "./Section";
-import { SleepingEarnings } from "./SleepingEarnings";
-import { TaxFreedomDay } from "./TaxFreedomDay";
 
 interface Props {
   returns: Record<number, TaxReturn>;
@@ -14,129 +12,11 @@ interface Props {
 
 export function SummaryReceiptView({ returns }: Props) {
   const [timeUnit, setTimeUnit] = useState<TimeUnit>("daily");
-
-  const data = useMemo(() => {
-    const years = Object.keys(returns).map(Number).sort((a, b) => a - b);
-    const allReturns = years.map((year) => returns[year]).filter((r): r is TaxReturn => r !== undefined);
-
-    if (allReturns.length === 0) return null;
-
-    // Aggregate income items across years
-    const incomeItemsMap = new Map<string, number>();
-    for (const r of allReturns) {
-      for (const item of r.income.items) {
-        incomeItemsMap.set(item.label, (incomeItemsMap.get(item.label) || 0) + item.amount);
-      }
-    }
-    const incomeItems = Array.from(incomeItemsMap.entries()).map(([label, amount]) => ({ label, amount }));
-
-    // Totals
-    const totalIncome = allReturns.reduce((sum, r) => sum + r.income.total, 0);
-    const totalFederalTax = allReturns.reduce((sum, r) => sum + r.federal.tax, 0);
-    const totalStateTax = allReturns.reduce((sum, r) => sum + r.states.reduce((s, st) => s + st.tax, 0), 0);
-    const totalTax = totalFederalTax + totalStateTax;
-    const netIncome = totalIncome - totalTax;
-
-    // Aggregate federal deductions
-    const federalDeductionsMap = new Map<string, number>();
-    for (const r of allReturns) {
-      for (const item of r.federal.deductions) {
-        federalDeductionsMap.set(item.label, (federalDeductionsMap.get(item.label) || 0) + item.amount);
-      }
-    }
-    const federalDeductions = Array.from(federalDeductionsMap.entries()).map(([label, amount]) => ({ label, amount }));
-
-    // Aggregate state info
-    const stateMap = new Map<string, { tax: number; count: number }>();
-    for (const r of allReturns) {
-      for (const s of r.states) {
-        const existing = stateMap.get(s.name) || { tax: 0, count: 0 };
-        stateMap.set(s.name, { tax: existing.tax + s.tax, count: existing.count + 1 });
-      }
-    }
-    const states = Array.from(stateMap.entries()).map(([name, { tax }]) => ({ name, tax }));
-
-    // Average AGI
-    const avgAgi = allReturns.reduce((sum, r) => sum + r.federal.agi, 0) / allReturns.length;
-    const avgTaxableIncome = allReturns.reduce((sum, r) => sum + r.federal.taxableIncome, 0) / allReturns.length;
-
-    // Net position totals
-    const totalFederalRefund = allReturns.reduce((sum, r) => sum + r.summary.federalAmount, 0);
-    const stateRefundsMap = new Map<string, number>();
-    for (const r of allReturns) {
-      for (const s of r.summary.stateAmounts) {
-        stateRefundsMap.set(s.state, (stateRefundsMap.get(s.state) || 0) + s.amount);
-      }
-    }
-    const stateRefunds = Array.from(stateRefundsMap.entries()).map(([state, amount]) => ({ state, amount }));
-    const totalNetPosition = allReturns.reduce((sum, r) => sum + r.summary.netPosition, 0);
-
-    // Average rates
-    const returnsWithRates = allReturns.filter((r) => r.rates);
-    const avgFederalMarginal = returnsWithRates.length > 0
-      ? returnsWithRates.reduce((sum, r) => sum + (r.rates?.federal.marginal || 0), 0) / returnsWithRates.length
-      : null;
-    const avgFederalEffective = returnsWithRates.length > 0
-      ? returnsWithRates.reduce((sum, r) => sum + (r.rates?.federal.effective || 0), 0) / returnsWithRates.length
-      : null;
-    const returnsWithStateRates = allReturns.filter((r) => r.rates?.state);
-    const avgStateMarginal = returnsWithStateRates.length > 0
-      ? returnsWithStateRates.reduce((sum, r) => sum + (r.rates?.state?.marginal || 0), 0) / returnsWithStateRates.length
-      : null;
-    const avgStateEffective = returnsWithStateRates.length > 0
-      ? returnsWithStateRates.reduce((sum, r) => sum + (r.rates?.state?.effective || 0), 0) / returnsWithStateRates.length
-      : null;
-    const returnsWithCombinedRates = allReturns.filter((r) => r.rates?.combined);
-    const avgCombinedMarginal = returnsWithCombinedRates.length > 0
-      ? returnsWithCombinedRates.reduce((sum, r) => sum + (r.rates?.combined?.marginal || 0), 0) / returnsWithCombinedRates.length
-      : null;
-    const avgCombinedEffective = returnsWithCombinedRates.length > 0
-      ? returnsWithCombinedRates.reduce((sum, r) => sum + (r.rates?.combined?.effective || 0), 0) / returnsWithCombinedRates.length
-      : null;
-
-    // Monthly and hourly
-    const grossMonthly = Math.round(totalIncome / 12 / allReturns.length);
-    const netMonthly = Math.round(netIncome / 12 / allReturns.length);
-    const avgHourlyRate = (netIncome / allReturns.length) / 2080;
-
-    // Tax freedom day data
-    const taxFreedomYears = years.map((year) => {
-      const r = returns[year];
-      if (!r) return null;
-      return { year, effectiveRate: getEffectiveRate(r) };
-    }).filter((x): x is { year: number; effectiveRate: number } => x !== null);
-
-    return {
-      years,
-      yearCount: allReturns.length,
-      incomeItems,
-      totalIncome,
-      avgAgi,
-      avgTaxableIncome,
-      federalDeductions,
-      totalFederalTax,
-      states,
-      totalStateTax,
-      totalTax,
-      netIncome,
-      totalFederalRefund,
-      stateRefunds,
-      totalNetPosition,
-      rates: avgFederalMarginal !== null ? {
-        federal: { marginal: avgFederalMarginal, effective: avgFederalEffective! },
-        state: avgStateMarginal !== null ? { marginal: avgStateMarginal, effective: avgStateEffective! } : null,
-        combined: avgCombinedMarginal !== null ? { marginal: avgCombinedMarginal, effective: avgCombinedEffective! } : null,
-      } : null,
-      grossMonthly,
-      netMonthly,
-      avgHourlyRate,
-      taxFreedomYears,
-    };
-  }, [returns]);
+  const data = useMemo(() => aggregateSummary(returns), [returns]);
 
   if (!data) {
     return (
-      <div className="max-w-md mx-auto px-6 py-12 font-mono text-sm text-[var(--color-muted)]">
+      <div className="max-w-md mx-auto px-6 py-12 font-mono text-sm text-[var(--color-text-muted)]">
         No tax returns available.
       </div>
     );
@@ -151,7 +31,7 @@ export function SummaryReceiptView({ returns }: Props) {
     <div className="max-w-md mx-auto px-6 py-12 font-mono text-sm">
       <header className="mb-2">
         <h1 className="text-lg font-bold tracking-tight">TAX SUMMARY</h1>
-        <p className="text-[var(--color-muted)] text-xs">
+        <p className="text-[var(--color-text-muted)] text-xs">
           {data.yearCount} year{data.yearCount > 1 ? "s" : ""}: {yearRange}
         </p>
       </header>
@@ -166,12 +46,12 @@ export function SummaryReceiptView({ returns }: Props) {
 
       <SectionHeader>FEDERAL TOTALS</SectionHeader>
       <Separator />
-      <Row label={`Avg. adjusted gross income`} amount={Math.round(data.avgAgi)} />
+      <Row label="Avg. adjusted gross income" amount={Math.round(data.avgAgi)} />
       {data.federalDeductions.map((item, i) => (
         <Row key={i} label={`Total ${item.label.toLowerCase()}`} amount={item.amount} isMuted />
       ))}
       <Separator />
-      <Row label={`Avg. taxable income`} amount={Math.round(data.avgTaxableIncome)} />
+      <Row label="Avg. taxable income" amount={Math.round(data.avgTaxableIncome)} />
       <Row label="Total federal tax" amount={data.totalFederalTax} />
 
       {data.states.length > 0 && (
@@ -208,7 +88,7 @@ export function SummaryReceiptView({ returns }: Props) {
         <>
           <SectionHeader>AVERAGE TAX RATES</SectionHeader>
           <Separator />
-          <div className="flex justify-between py-0.5 text-[var(--color-muted)] text-xs">
+          <div className="flex justify-between py-0.5 text-[var(--color-text-muted)] text-xs">
             <span className="w-32" />
             <span className="w-20 text-right">Marginal</span>
             <span className="w-20 text-right">Effective</span>
@@ -248,16 +128,14 @@ export function SummaryReceiptView({ returns }: Props) {
           Avg. {TIME_UNIT_LABELS[timeUnit].toLowerCase()} take-home
           {timeUnit === "hourly" && (
             <span
-              className="text-[10px] text-[var(--color-muted)] cursor-help"
+              className="text-[10px] text-[var(--color-text-muted)] cursor-help"
               title="Based on 2,080 working hours per year (40 hrs x 52 weeks)"
             >
               ?
             </span>
           )}
         </span>
-        <span className="tabular-nums">
-          {formatTimeUnitValue(timeUnitValue, timeUnit)}
-        </span>
+        <span className="tabular-nums">{formatTimeUnitValue(timeUnitValue, timeUnit)}</span>
       </div>
 
       <div className="flex gap-1 mt-1 mb-4">
@@ -267,8 +145,8 @@ export function SummaryReceiptView({ returns }: Props) {
             onClick={() => setTimeUnit(unit)}
             className={`px-2 py-0.5 text-xs border transition-colors ${
               timeUnit === unit
-                ? "border-[var(--color-foreground)] bg-[var(--color-foreground)] text-[var(--color-background)]"
-                : "border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-muted)]"
+                ? "border-[var(--color-text)] bg-[var(--color-text)] text-[var(--color-bg)]"
+                : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)]"
             }`}
           >
             {unit.charAt(0).toUpperCase()}
@@ -276,11 +154,7 @@ export function SummaryReceiptView({ returns }: Props) {
         ))}
       </div>
 
-      <SleepingEarnings netIncome={data.netIncome / data.yearCount} />
-
-      <TaxFreedomDay years={data.taxFreedomYears} />
-
-      <footer className="mt-12 pt-4 border-t border-[var(--color-border)] text-[var(--color-muted)] text-xs text-center">
+      <footer className="mt-12 pt-4 border-t border-[var(--color-border)] text-[var(--color-text-muted)] text-xs text-center">
         Summary for {yearRange}
       </footer>
     </div>

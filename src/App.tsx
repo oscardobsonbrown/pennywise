@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import type { TaxReturn, PendingUpload } from "./lib/schema";
+import type { NavItem } from "./lib/types";
 import { demoReturn } from "./data/demo";
-import { Sidebar } from "./components/Sidebar";
+import { sampleReturns } from "./data/sampleData";
 import { MainPanel } from "./components/MainPanel";
 import { UploadModal } from "./components/UploadModal";
 import { Chat } from "./components/Chat";
 import { extractYearFromFilename } from "./lib/year-extractor";
 import "./index.css";
+
+const DEV_SAMPLE_DATA_KEY = "dev-use-sample-data";
 
 type SelectedView = "summary" | "demo" | number | `pending:${string}`;
 
@@ -15,60 +18,41 @@ interface AppState {
   hasStoredKey: boolean;
   selectedYear: SelectedView;
   isLoading: boolean;
+  isDev: boolean;
 }
 
-async function fetchInitialState(): Promise<Pick<AppState, "returns" | "hasStoredKey">> {
+async function fetchInitialState(): Promise<Pick<AppState, "returns" | "hasStoredKey" | "isDev">> {
   const [configRes, returnsRes] = await Promise.all([
     fetch("/api/config"),
     fetch("/api/returns"),
   ]);
-  const { hasKey } = await configRes.json();
+  const { hasKey, isDev } = await configRes.json();
   const returns = await returnsRes.json();
-  return { hasStoredKey: hasKey, returns };
+  return { hasStoredKey: hasKey, returns, isDev: isDev ?? false };
 }
 
 function getDefaultSelection(returns: Record<number, TaxReturn>): SelectedView {
   const years = Object.keys(returns).map(Number).sort((a, b) => a - b);
   if (years.length === 0) return "demo";
-  if (years.length === 1) return years[0];
+  if (years.length === 1) return years[0] ?? "demo";
   return "summary";
 }
 
-interface SidebarItem {
-  id: string;
-  label: string;
-  isPending?: boolean;
-  status?: "extracting-year" | "parsing";
+function buildNavItems(returns: Record<number, TaxReturn>): NavItem[] {
+  const years = Object.keys(returns).map(Number).sort((a, b) => b - a);
+  if (years.length === 0) return [{ id: "demo", label: "Demo" }];
+
+  const items: NavItem[] = [];
+  if (years.length > 1) items.push({ id: "summary", label: "Summary" });
+  items.push(...years.map((y) => ({ id: String(y), label: String(y) })));
+  return items;
 }
 
-function buildSidebarItems(
-  returns: Record<number, TaxReturn>,
-  pendingUploads: PendingUpload[]
-): SidebarItem[] {
-  const years = Object.keys(returns).map(Number).sort((a, b) => a - b);
-  const items: SidebarItem[] = [];
-
-  if (years.length === 0 && pendingUploads.length === 0) {
-    return [{ id: "demo", label: "Demo" }];
-  }
-
-  if (years.length > 1 || (years.length >= 1 && pendingUploads.length > 0)) {
-    items.push({ id: "summary", label: "Summary" });
-  }
-
-  items.push(...years.map((y) => ({ id: String(y), label: String(y) })));
-
-  // Add pending uploads
-  for (const pending of pendingUploads) {
-    items.push({
-      id: `pending:${pending.id}`,
-      label: pending.year ? String(pending.year) : "...",
-      isPending: true,
-      status: pending.status,
-    });
-  }
-
-  return items;
+function parseSelectedId(id: string): SelectedView {
+  if (id === "demo") return "demo";
+  if (id === "summary") return "summary";
+  if (id.startsWith("pending:")) return id as `pending:${string}`;
+  return Number(id);
 }
 
 export function App() {
@@ -77,27 +61,32 @@ export function App() {
     hasStoredKey: false,
     selectedYear: "demo",
     isLoading: true,
+    isDev: false,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingFiles, setPendingFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [configureKeyOnly, setConfigureKeyOnly] = useState(false);
   const [pendingUploads, setPendingUploads] = useState<PendingUpload[]>([]);
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(true);
   const [isDark, setIsDark] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
-  const items = buildSidebarItems(state.returns, pendingUploads);
+  const navItems = buildNavItems(state.returns);
 
   useEffect(() => {
     fetchInitialState()
-      .then(({ returns, hasStoredKey }) => {
+      .then(({ returns, hasStoredKey, isDev }) => {
+        // In dev mode, check if we should load sample data
+        const useSampleData = isDev && localStorage.getItem(DEV_SAMPLE_DATA_KEY) === "true";
+        const effectiveReturns = useSampleData ? sampleReturns : returns;
         setState({
-          returns,
+          returns: effectiveReturns,
           hasStoredKey,
-          selectedYear: getDefaultSelection(returns),
+          selectedYear: getDefaultSelection(effectiveReturns),
           isLoading: false,
+          isDev,
         });
       })
       .catch((err) => {
@@ -115,16 +104,16 @@ export function App() {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
         return;
       }
-      const selectedId =
+      const currentId =
         state.selectedYear === "demo"
           ? "demo"
           : state.selectedYear === "summary"
             ? "summary"
             : String(state.selectedYear);
-      const selectedIndex = items.findIndex((item) => item.id === selectedId);
+      const selectedIndex = navItems.findIndex((item) => item.id === currentId);
 
-      if (e.key === "j" && selectedIndex < items.length - 1) {
-        const nextItem = items[selectedIndex + 1];
+      if (e.key === "j" && selectedIndex < navItems.length - 1) {
+        const nextItem = navItems[selectedIndex + 1];
         if (nextItem) {
           setState((s) => ({
             ...s,
@@ -133,7 +122,7 @@ export function App() {
         }
       }
       if (e.key === "k" && selectedIndex > 0) {
-        const prevItem = items[selectedIndex - 1];
+        const prevItem = navItems[selectedIndex - 1];
         if (prevItem) {
           setState((s) => ({
             ...s,
@@ -142,20 +131,13 @@ export function App() {
         }
       }
     },
-    [state.selectedYear, items]
+    [state.selectedYear, navItems]
   );
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
-
-  function parseSelectedId(id: string): SelectedView {
-    if (id === "demo") return "demo";
-    if (id === "summary") return "summary";
-    if (id.startsWith("pending:")) return id as `pending:${string}`;
-    return Number(id);
-  }
 
   async function processUpload(file: File, apiKey: string) {
     const formData = new FormData();
@@ -331,23 +313,26 @@ export function App() {
   }
 
   function renderMainPanel() {
-    const chatProps = {
+    const commonProps = {
       isChatOpen,
       onToggleChat: () => setIsChatOpen(!isChatOpen),
+      navItems,
+      selectedId,
+      onSelect: handleSelect,
     };
 
     if (selectedPendingUpload) {
-      return <MainPanel view="loading" pendingUpload={selectedPendingUpload} {...chatProps} />;
+      return <MainPanel view="loading" pendingUpload={selectedPendingUpload} {...commonProps} />;
     }
     if (state.selectedYear === "summary") {
-      return <MainPanel view="summary" returns={state.returns} {...chatProps} />;
+      return <MainPanel view="summary" returns={state.returns} {...commonProps} />;
     }
     return (
       <MainPanel
         view="receipt"
         data={getReceiptData()}
         title={state.selectedYear === "demo" ? "Demo" : String(state.selectedYear)}
-        {...chatProps}
+        {...commonProps}
       />
     );
   }
@@ -360,21 +345,6 @@ export function App() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar
-        items={items}
-        selectedId={selectedId}
-        onSelect={handleSelect}
-        onUpload={handleUploadFromSidebar}
-        onDelete={handleDelete}
-        isUploading={isUploading}
-        isDark={isDark}
-        onToggleDark={() => setIsDark(!isDark)}
-        onConfigureApiKey={() => {
-          setConfigureKeyOnly(true);
-          setIsModalOpen(true);
-        }}
-      />
-
       {renderMainPanel()}
 
       {isChatOpen && (

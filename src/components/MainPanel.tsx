@@ -1,17 +1,19 @@
-import { useMemo, useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Menu } from "@base-ui/react/menu";
 import type { TaxReturn, PendingUpload } from "../lib/schema";
-import { getNetIncome, getEffectiveRate } from "../lib/tax-calculations";
+import type { NavItem } from "../lib/types";
 import { ReceiptView } from "./ReceiptView";
-import { SleepingEarnings } from "./SleepingEarnings";
 import { SummaryStats } from "./SummaryStats";
 import { SummaryTable } from "./SummaryTable";
 import { SummaryReceiptView } from "./SummaryReceiptView";
-import { TaxFreedomDay } from "./TaxFreedomDay";
 import { LoadingView } from "./LoadingView";
 
 interface CommonProps {
   isChatOpen: boolean;
   onToggleChat: () => void;
+  navItems: NavItem[];
+  selectedId: string;
+  onSelect: (id: string) => void;
 }
 
 interface ReceiptProps extends CommonProps {
@@ -34,69 +36,90 @@ type Props = ReceiptProps | SummaryProps | LoadingProps;
 
 type SummaryViewMode = "table" | "receipt";
 
+const ITEM_WIDTH = 70; // Approximate width per nav item in pixels
+const OVERFLOW_BUTTON_WIDTH = 40;
+
 export function MainPanel(props: Props) {
   const [summaryViewMode, setSummaryViewMode] = useState<SummaryViewMode>("table");
-  const title = props.view === "summary" ? "Today" : props.view === "loading" ? "Processing" : props.title;
+  const [visibleCount, setVisibleCount] = useState(props.navItems.length);
+  const navRef = useRef<HTMLElement>(null);
 
-  const summaryData = useMemo(() => {
-    if (props.view !== "summary") return null;
-    const years = Object.keys(props.returns).map(Number).sort((a, b) => a - b);
-    const allReturns = years.map((year) => props.returns[year]).filter((r): r is TaxReturn => r !== undefined);
+  const calculateVisibleItems = useCallback(() => {
+    if (!navRef.current) return;
+    const availableWidth = navRef.current.offsetWidth;
+    const maxItems = Math.floor((availableWidth - OVERFLOW_BUTTON_WIDTH) / ITEM_WIDTH);
+    setVisibleCount(Math.max(1, Math.min(props.navItems.length, maxItems)));
+  }, [props.navItems.length]);
 
-    const totalNetIncome = allReturns.reduce((sum, r) => sum + getNetIncome(r), 0);
+  useEffect(() => {
+    calculateVisibleItems();
+    const observer = new ResizeObserver(calculateVisibleItems);
+    if (navRef.current) {
+      observer.observe(navRef.current);
+    }
+    return () => observer.disconnect();
+  }, [calculateVisibleItems]);
 
-    const taxFreedomYears = years
-      .map((year) => {
-        const r = props.returns[year];
-        if (!r) return null;
-        return { year, effectiveRate: getEffectiveRate(r) };
-      })
-      .filter((x): x is { year: number; effectiveRate: number } => x !== null);
-
-    return { totalNetIncome, taxFreedomYears };
-  }, [props]);
+  const visibleItems = props.navItems.slice(0, visibleCount);
+  const overflowItems = props.navItems.slice(visibleCount);
+  const hasOverflow = overflowItems.length > 0;
 
   return (
     <div className="flex-1 flex flex-col h-screen overflow-hidden bg-[var(--color-bg)]">
-      {/* Header - visitors.now style */}
-      <header className="px-6 py-3 flex items-center justify-between flex-shrink-0 border-b border-[var(--color-border)]">
-        <div className="flex items-center gap-4">
-          <span className="text-sm">{title}</span>
-          {props.view === "summary" && (
-            <div className="flex text-sm">
+      {/* Header */}
+      <header className="h-12 px-6 flex items-center justify-between flex-shrink-0 border-b border-[var(--color-border)]">
+        <div className="flex items-center gap-6 min-w-0 flex-1">
+          <span className="text-sm font-medium flex-shrink-0">Taxes</span>
+          <nav ref={navRef} className="flex items-center gap-1 flex-1 min-w-0">
+            {visibleItems.map((item) => (
               <button
-                onClick={() => setSummaryViewMode("table")}
-                className={`px-2 py-1 ${
-                  summaryViewMode === "table"
+                key={item.id}
+                onClick={() => props.onSelect(item.id)}
+                className={`px-2 py-1 text-sm flex-shrink-0 ${
+                  props.selectedId === item.id
                     ? "text-[var(--color-text)]"
                     : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
                 }`}
               >
-                Table
+                {item.label}
               </button>
-              <button
-                onClick={() => setSummaryViewMode("receipt")}
-                className={`px-2 py-1 ${
-                  summaryViewMode === "receipt"
-                    ? "text-[var(--color-text)]"
-                    : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-                }`}
-              >
-                Cards
-              </button>
-            </div>
-          )}
+            ))}
+            {hasOverflow && (
+              <Menu.Root>
+                <Menu.Trigger className="px-2 py-1 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] flex-shrink-0">
+                  ···
+                </Menu.Trigger>
+                <Menu.Portal>
+                  <Menu.Positioner className="z-50">
+                    <Menu.Popup className="bg-[var(--color-bg)] border border-[var(--color-border)] shadow-lg py-1 min-w-[120px]">
+                      {overflowItems.map((item) => (
+                        <Menu.Item
+                          key={item.id}
+                          onClick={() => props.onSelect(item.id)}
+                          className={`px-3 py-1.5 text-sm cursor-pointer hover:bg-[var(--color-bg-muted)] outline-none ${
+                            props.selectedId === item.id
+                              ? "text-[var(--color-text)]"
+                              : "text-[var(--color-text-muted)]"
+                          }`}
+                        >
+                          {item.label}
+                        </Menu.Item>
+                      ))}
+                    </Menu.Popup>
+                  </Menu.Positioner>
+                </Menu.Portal>
+              </Menu.Root>
+            )}
+          </nav>
         </div>
-        <button
-          onClick={props.onToggleChat}
-          className={`text-sm ${
-            props.isChatOpen
-              ? "text-[var(--color-text)]"
-              : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-          }`}
-        >
-          Chat
-        </button>
+        {!props.isChatOpen && (
+          <button
+            onClick={props.onToggleChat}
+            className="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] flex-shrink-0"
+          >
+            Chat
+          </button>
+        )}
       </header>
 
       {/* Content */}
@@ -106,13 +129,11 @@ export function MainPanel(props: Props) {
           year={props.pendingUpload.year}
           status={props.pendingUpload.status}
         />
-      ) : props.view === "summary" && summaryData ? (
+      ) : props.view === "summary" ? (
         summaryViewMode === "table" ? (
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <div className="flex-1 flex flex-col min-h-0">
             <SummaryStats returns={props.returns} />
-            <SleepingEarnings netIncome={summaryData.totalNetIncome} />
-            <TaxFreedomDay years={summaryData.taxFreedomYears} />
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 min-h-0">
               <SummaryTable returns={props.returns} />
             </div>
           </div>

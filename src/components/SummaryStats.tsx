@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Menu } from "@base-ui/react/menu";
 import type { TaxReturn } from "../lib/schema";
 import { formatCompact } from "../lib/format";
 import { getTotalTax, getNetIncome, getEffectiveRate } from "../lib/tax-calculations";
@@ -7,21 +8,6 @@ import { Sparkline } from "./Sparkline";
 
 interface Props {
   returns: Record<number, TaxReturn>;
-}
-
-function getDailyTake(data: TaxReturn): number {
-  return Math.round(getNetIncome(data) / 365);
-}
-
-function getHourlyTake(data: TaxReturn): number {
-  return getNetIncome(data) / 2080; // 40 hrs × 52 weeks
-}
-
-function formatChange(current: number, previous: number): string {
-  if (previous === 0) return "";
-  const change = ((current - previous) / previous) * 100;
-  const sign = change >= 0 ? "+" : "";
-  return `${sign}${change.toFixed(0)}%`;
 }
 
 export function SummaryStats({ returns }: Props) {
@@ -41,25 +27,14 @@ export function SummaryStats({ returns }: Props) {
 
     if (allReturns.length === 0) return null;
 
-    // Current year and previous year for change calculation
-    const currentYear = years[years.length - 1];
-    const prevYear = years.length > 1 ? years[years.length - 2] : null;
-    const currentReturn = returns[currentYear];
-    const prevReturn = prevYear ? returns[prevYear] : null;
-
     // Sum across all years
     const totalIncome = allReturns.reduce((sum, r) => sum + r.income.total, 0);
     const totalTaxes = allReturns.reduce((sum, r) => sum + getTotalTax(r), 0);
     const netIncome = totalIncome - totalTaxes;
     const avgEffectiveRate = allReturns.reduce((sum, r) => sum + getEffectiveRate(r), 0) / allReturns.length;
 
-    // Changes from previous year
-    const incomeChange = prevReturn ? formatChange(currentReturn.income.total, prevReturn.income.total) : "";
-    const taxChange = prevReturn ? formatChange(getTotalTax(currentReturn), getTotalTax(prevReturn)) : "";
-    const effectiveChange = prevReturn ? formatChange(getEffectiveRate(currentReturn), getEffectiveRate(prevReturn)) : "";
-
-    // Hourly rates for time unit calculations
-    const hourlyRates = allReturns.map((r) => getHourlyTake(r));
+    // Hourly rate (2,080 working hours per year: 40 hrs × 52 weeks)
+    const hourlyRates = allReturns.map((r) => getNetIncome(r) / 2080);
     const avgHourlyRate = hourlyRates.reduce((sum, h) => sum + h, 0) / hourlyRates.length;
 
     // Per-year values for sparklines
@@ -69,9 +44,9 @@ export function SummaryStats({ returns }: Props) {
     const netPerYear = allReturns.map((r) => getNetIncome(r));
 
     return {
-      income: { value: totalIncome, change: incomeChange, sparkline: incomePerYear },
-      taxes: { value: totalTaxes, change: taxChange, sparkline: taxesPerYear },
-      effective: { value: avgEffectiveRate, change: effectiveChange, sparkline: effectivePerYear },
+      income: { value: totalIncome, sparkline: incomePerYear },
+      taxes: { value: totalTaxes, sparkline: taxesPerYear },
+      effective: { value: avgEffectiveRate, sparkline: effectivePerYear },
       net: { value: netIncome, sparkline: netPerYear },
       avgHourlyRate,
     };
@@ -84,81 +59,83 @@ export function SummaryStats({ returns }: Props) {
   const timeUnitValue = convertToTimeUnit(stats.avgHourlyRate, timeUnit);
 
   return (
-    <div className="px-6 pt-6 pb-2 flex-shrink-0">
-      {/* Top stats row - visitors.now style */}
-      <div className="flex gap-12 mb-8">
+    <div className="px-6 py-6 flex-shrink-0 border-b border-[var(--color-border)]">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
         <div>
           <div className="text-xs text-[var(--color-text-muted)] mb-1">Income</div>
-          <div className="text-2xl font-semibold tabular-nums tracking-tight">
-            {formatCompact(stats.income.value)}
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-semibold tabular-nums tracking-tight">
+              {formatCompact(stats.income.value)}
+            </span>
+            <Sparkline
+              values={stats.income.sparkline}
+              width={48}
+              height={20}
+              className="text-[var(--color-text-muted)]"
+            />
           </div>
-          {stats.income.change && (
-            <div className={`text-xs mt-0.5 ${stats.income.change.startsWith('+') ? 'text-[var(--color-positive)]' : 'text-[var(--color-negative)]'}`}>
-              {stats.income.change}
-            </div>
-          )}
         </div>
 
         <div>
           <div className="text-xs text-[var(--color-text-muted)] mb-1">Taxes</div>
-          <div className="text-2xl font-semibold tabular-nums tracking-tight">
-            {formatCompact(stats.taxes.value)}
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-semibold tabular-nums tracking-tight">
+              {formatCompact(stats.taxes.value)}
+            </span>
+            <Sparkline
+              values={stats.taxes.sparkline}
+              width={48}
+              height={20}
+              className="text-[var(--color-negative)]"
+            />
           </div>
-          {stats.taxes.change && (
-            <div className={`text-xs mt-0.5 ${stats.taxes.change.startsWith('+') ? 'text-[var(--color-negative)]' : 'text-[var(--color-positive)]'}`}>
-              {stats.taxes.change}
-            </div>
-          )}
         </div>
 
         <div>
-          <div className="text-xs text-[var(--color-text-muted)] mb-1">Effective Rate</div>
-          <div className="text-2xl font-semibold tabular-nums tracking-tight">
-            {(stats.effective.value * 100).toFixed(1)}%
+          <div className="text-xs text-[var(--color-text-muted)] mb-1">Net</div>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-semibold tabular-nums tracking-tight">
+              {formatCompact(stats.net.value)}
+            </span>
+            <Sparkline
+              values={stats.net.sparkline}
+              width={48}
+              height={20}
+              className="text-[var(--color-positive)]"
+            />
           </div>
-          {stats.effective.change && (
-            <div className={`text-xs mt-0.5 ${stats.effective.change.startsWith('+') ? 'text-[var(--color-negative)]' : 'text-[var(--color-positive)]'}`}>
-              {stats.effective.change}
-            </div>
-          )}
         </div>
 
         <div>
-          <div className="text-xs text-[var(--color-text-muted)] mb-1 flex items-center gap-1">
-            {TIME_UNIT_LABELS[timeUnit]}
-            {timeUnit === "hourly" && (
-              <span className="cursor-help" title="Based on 2,080 working hours per year">?</span>
-            )}
-          </div>
+          <Menu.Root>
+            <Menu.Trigger className="text-xs text-[var(--color-text-muted)] mb-1 flex items-center gap-1 hover:text-[var(--color-text)] cursor-pointer">
+              {TIME_UNIT_LABELS[timeUnit]}
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor" className="opacity-50">
+                <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Menu.Trigger>
+            <Menu.Portal>
+              <Menu.Positioner sideOffset={4} className="z-50">
+                <Menu.Popup className="bg-[var(--color-bg)] border border-[var(--color-border)] py-1 min-w-[120px] text-sm">
+                  {(["daily", "hourly", "minute", "second"] as TimeUnit[]).map((unit) => (
+                    <Menu.Item
+                      key={unit}
+                      onClick={() => setTimeUnit(unit)}
+                      className={`px-3 py-1.5 cursor-pointer hover:bg-[var(--color-bg-muted)] data-[highlighted]:bg-[var(--color-bg-muted)] outline-none ${
+                        timeUnit === unit ? "text-[var(--color-text)]" : "text-[var(--color-text-secondary)]"
+                      }`}
+                    >
+                      {TIME_UNIT_LABELS[unit]}
+                    </Menu.Item>
+                  ))}
+                </Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu.Root>
           <div className="text-2xl font-semibold tabular-nums tracking-tight">
             {formatTimeUnitValueCompact(timeUnitValue, timeUnit)}
           </div>
-          <div className="flex gap-1 mt-1.5">
-            {(["daily", "hourly", "minute", "second"] as TimeUnit[]).map((unit) => (
-              <button
-                key={unit}
-                onClick={() => setTimeUnit(unit)}
-                className={`px-1.5 py-0.5 text-[10px] ${
-                  timeUnit === unit
-                    ? "text-[var(--color-text)]"
-                    : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
-                }`}
-              >
-                {unit.charAt(0).toUpperCase()}
-              </button>
-            ))}
-          </div>
         </div>
-      </div>
-
-      {/* Sparkline chart area - like visitors.now line chart */}
-      <div className="h-32 relative border-b border-[var(--color-border)]">
-        <Sparkline
-          values={stats.net.sparkline}
-          width={800}
-          height={120}
-          className="text-[var(--color-chart)] w-full"
-        />
       </div>
     </div>
   );

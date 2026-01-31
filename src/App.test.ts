@@ -9,7 +9,7 @@ type SelectedView = "summary" | "demo" | number;
 function getDefaultSelection(returns: Record<number, TaxReturn>): SelectedView {
   const years = Object.keys(returns).map(Number).sort((a, b) => a - b);
   if (years.length === 0) return "demo";
-  if (years.length === 1) return years[0];
+  if (years.length === 1) return years[0] ?? "demo";
   return "summary";
 }
 
