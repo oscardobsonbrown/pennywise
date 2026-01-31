@@ -114,15 +114,20 @@ function mergeLabeledAmounts(
 }
 
 function mergeReturns(returns: TaxReturn[]): TaxReturn {
+  const first = returns[0];
+  if (!first) {
+    throw new Error("No tax returns to merge");
+  }
+
   if (returns.length === 1) {
-    return returns[0];
+    return first;
   }
 
   // Start with the first result as the base (usually has the main 1040 data)
-  const base = returns[0];
+  const base = first;
 
   for (let i = 1; i < returns.length; i++) {
-    const chunk = returns[i];
+    const chunk = returns[i]!;
 
     // Merge income items
     base.income.items = mergeLabeledAmounts(base.income.items, chunk.income.items);
@@ -196,7 +201,7 @@ async function smartExtract(
   if (totalPages <= CLASSIFICATION_THRESHOLD) {
     const chunks = await splitPdf(pdfBase64);
     if (chunks.length === 1) {
-      return parseChunk(chunks[0], client);
+      return parseChunk(chunks[0]!, client);
     }
     const results: TaxReturn[] = [];
     for (const chunk of chunks) {

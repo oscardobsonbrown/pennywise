@@ -48,7 +48,7 @@ describe("getTotalTax", () => {
     const multiState: TaxReturn = {
       ...baseTaxReturn,
       states: [
-        { ...baseTaxReturn.states[0], tax: 3000 },
+        { ...baseTaxReturn.states[0]!, tax: 3000 },
         {
           name: "New York",
           agi: 100000,

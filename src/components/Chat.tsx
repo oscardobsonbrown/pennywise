@@ -112,6 +112,14 @@ export function Chat({ returns, hasApiKey, onClose }: Props) {
     inputRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    const textarea = inputRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
+    }
+  }, [input]);
+
   const handleNewChat = useCallback(() => {
     setMessages([]);
     saveMessages([]);
@@ -270,7 +278,7 @@ export function Chat({ returns, hasApiKey, onClose }: Props) {
           placeholder={hasApiKey ? "Ask anything..." : "Need API key"}
           disabled={!hasApiKey || isLoading}
           rows={1}
-          className="w-full px-3 py-2.5 bg-[var(--color-bg-muted)] rounded-lg text-sm placeholder:text-[var(--color-text-muted)] resize-none focus:outline-none disabled:opacity-50"
+          className="w-full px-3 py-2.5 bg-[var(--color-bg-muted)] rounded-lg text-sm placeholder:text-[var(--color-text-muted)] resize-none focus:outline-none disabled:opacity-50 overflow-y-auto"
         />
       </form>
     </div>

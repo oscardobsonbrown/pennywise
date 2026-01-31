@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Dialog } from "@base-ui/react/dialog";
+import { Input } from "@base-ui/react/input";
 import { Button } from "./Button";
 
 interface Props {
@@ -158,7 +159,7 @@ export function UploadModal({ isOpen, onClose, onUpload, onSaveApiKey, hasStored
               <label className="block text-xs text-[var(--color-text-muted)] mb-1.5">
                 Anthropic API Key
               </label>
-              <input
+              <Input
                 type="password"
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}

@@ -108,7 +108,6 @@ export function MainPanel(props: Props) {
               </Menu.Positioner>
             </Menu.Portal>
           </Menu.Root>
-          <span className="text-sm font-medium flex-shrink-0">Taxes</span>
           <nav ref={navRef} className="flex items-center gap-0.5 flex-1 min-w-0">
             {visibleItems.map((item) => (
               <button

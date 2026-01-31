@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Dialog } from "@base-ui/react/dialog";
+import { Input } from "@base-ui/react/input";
 import { Button } from "./Button";
 
 interface Props {
@@ -70,7 +71,7 @@ export function SettingsModal({ isOpen, onClose, hasApiKey, onSaveApiKey, onClea
                     <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
                     API key configured
                   </div>
-                  <input
+                  <Input
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
@@ -82,7 +83,7 @@ export function SettingsModal({ isOpen, onClose, hasApiKey, onSaveApiKey, onClea
                   />
                 </div>
               ) : (
-                <input
+                <Input
                   type="password"
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
