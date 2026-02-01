@@ -1,54 +1,26 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Markdown from "react-markdown";
-import type { TaxReturn } from "../lib/schema";
 import { BrailleSpinner } from "./BrailleSpinner";
 
-interface Message {
+export interface ChatMessage {
   id: string;
   role: "user" | "assistant";
   content: string;
 }
 
 interface Props {
-  returns: Record<number, TaxReturn>;
+  messages: ChatMessage[];
+  isLoading: boolean;
   hasApiKey: boolean;
   isDemo: boolean;
+  onSubmit: (prompt: string) => void;
+  onNewChat: () => void;
   onClose: () => void;
 }
 
-const DEMO_RESPONSE = `This is a demo with sample data. To chat about your own tax returns, clone and run [TaxUI](https://github.com/brianlovin/tax-ui) locally:
-\`\`\`
-git clone https://github.com/brianlovin/tax-ui
-cd tax-ui
-bun install
-bun run dev
-\`\`\`
-You'll need [Bun](https://bun.sh) and an [Anthropic API key](https://console.anthropic.com).`;
-
-const STORAGE_KEY = "tax-chat-history";
 const WIDTH_STORAGE_KEY = "tax-chat-width";
 const MIN_WIDTH = 320;
 const MAX_WIDTH_PERCENT = 0.5;
-
-function loadMessages(): Message[] {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-  } catch {
-    // Ignore errors
-  }
-  return [];
-}
-
-function saveMessages(messages: Message[]) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-  } catch {
-    // Ignore errors
-  }
-}
 
 function loadWidth(): number {
   try {
@@ -70,10 +42,8 @@ function saveWidth(width: number) {
   }
 }
 
-export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
-  const [messages, setMessages] = useState<Message[]>(() => loadMessages());
+export function Chat({ messages, isLoading, hasApiKey, isDemo, onSubmit, onNewChat, onClose }: Props) {
   const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [width, setWidth] = useState(() => loadWidth());
   const [isResizing, setIsResizing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -112,10 +82,6 @@ export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
   }, [isResizing]);
 
   useEffect(() => {
-    saveMessages(messages);
-  }, [messages]);
-
-  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -131,89 +97,30 @@ export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
     }
   }, [input]);
 
-  const handleNewChat = useCallback(() => {
-    setMessages([]);
-    saveMessages([]);
-    inputRef.current?.focus();
-  }, []);
-
-  async function submitMessage(prompt: string) {
-    if (!prompt || isLoading) return;
-
-    const userMessage: Message = {
-      id: crypto.randomUUID(),
-      role: "user",
-      content: prompt,
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsLoading(true);
-
-    // In demo mode, return a hardcoded response
-    if (isDemo) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      const assistantMessage: Message = {
-        id: crypto.randomUUID(),
-        role: "assistant",
-        content: DEMO_RESPONSE,
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt,
-          history: messages,
-          returns,
-        }),
-      });
-
-      if (!res.ok) {
-        const { error } = await res.json();
-        throw new Error(error || `HTTP ${res.status}`);
-      }
-
-      const { response } = await res.json();
-
-      const assistantMessage: Message = {
-        id: crypto.randomUUID(),
-        role: "assistant",
-        content: response,
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-    } catch (err) {
-      console.error("Chat error:", err);
-      const errorMessage: Message = {
-        id: crypto.randomUUID(),
-        role: "assistant",
-        content: `Error: ${err instanceof Error ? err.message : "Failed to get response"}`,
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    submitMessage(input.trim());
+    const prompt = input.trim();
+    if (prompt && !isLoading) {
+      onSubmit(prompt);
+      setInput("");
+    }
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      submitMessage(input.trim());
+      const prompt = input.trim();
+      if (prompt && !isLoading) {
+        onSubmit(prompt);
+        setInput("");
+      }
     }
   }
 
-  const hasReturns = Object.keys(returns).length > 0;
+  function handleNewChat() {
+    onNewChat();
+    inputRef.current?.focus();
+  }
 
   return (
     <div
@@ -257,7 +164,7 @@ export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
             {messages.map((message) => (
               <div key={message.id}>
                 <div className="text-xs text-[var(--color-text-muted)] mb-1">
-                  {message.role === "user" ? "You" : "Assistant"}
+                  {message.role === "user" ? "You" : "Claude"}
                 </div>
                 <div className="text-sm prose-chat">
                   <Markdown
@@ -286,7 +193,7 @@ export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
             ))}
             {isLoading && (
               <div>
-                <div className="text-xs text-[var(--color-text-muted)] mb-1">Assistant</div>
+                <div className="text-xs text-[var(--color-text-muted)] mb-1">Claude</div>
                 <BrailleSpinner className="text-sm" />
               </div>
             )}
@@ -296,7 +203,7 @@ export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
       </div>
 
       {/* Suggestions - show when empty and no input */}
-      {messages.length === 0 && (isDemo || hasApiKey) && hasReturns && (
+      {messages.length === 0 && (isDemo || hasApiKey) && (
         <div
           className="px-4 pb-2 space-y-2 transition-opacity duration-150"
           style={{ opacity: input ? 0 : 1, pointerEvents: input ? "none" : "auto" }}
@@ -309,7 +216,9 @@ export function Chat({ returns, hasApiKey, isDemo, onClose }: Props) {
           ].map((suggestion) => (
             <button
               key={suggestion}
-              onClick={() => submitMessage(suggestion)}
+              onClick={() => {
+                onSubmit(suggestion);
+              }}
               className="block text-left text-xs px-3 py-2 border border-[var(--color-border)] rounded-lg text-[var(--color-text-muted)] hover:border-[var(--color-text-muted)] hover:text-[var(--color-text)]"
             >
               {suggestion}

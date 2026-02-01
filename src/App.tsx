@@ -6,13 +6,37 @@ import { MainPanel } from "./components/MainPanel";
 import { UploadModal } from "./components/UploadModal";
 import { SettingsModal } from "./components/SettingsModal";
 import { OnboardingDialog } from "./components/OnboardingDialog";
-import { Chat } from "./components/Chat";
+import { Chat, type ChatMessage } from "./components/Chat";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { extractYearFromFilename } from "./lib/year-extractor";
 import "./index.css";
 
 const CHAT_OPEN_KEY = "tax-chat-open";
+const CHAT_HISTORY_KEY = "tax-chat-history";
 const DEV_DEMO_OVERRIDE_KEY = "dev-demo-override";
+
+const DEMO_RESPONSE = `This is a demo with sample data. To chat about your own tax returns, clone and run [TaxUI](https://github.com/brianlovin/tax-ui) locally:
+\`\`\`
+git clone https://github.com/brianlovin/tax-ui
+cd tax-ui
+bun install
+bun run dev
+\`\`\`
+You'll need [Bun](https://bun.sh) and an [Anthropic API key](https://console.anthropic.com).`;
+
+function loadChatMessages(): ChatMessage[] {
+  try {
+    const stored = localStorage.getItem(CHAT_HISTORY_KEY);
+    if (stored) return JSON.parse(stored);
+  } catch {}
+  return [];
+}
+
+function saveChatMessages(messages: ChatMessage[]) {
+  try {
+    localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(messages));
+  } catch {}
+}
 
 type SelectedView = "summary" | number | `pending:${string}`;
 
@@ -101,6 +125,8 @@ export function App() {
     typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches
   );
   const [devTriggerError, setDevTriggerError] = useState(false);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(() => loadChatMessages());
+  const [isChatLoading, setIsChatLoading] = useState(false);
 
   // Compute effective demo mode early (dev override takes precedence)
   const effectiveIsDemo = devDemoOverride !== null ? devDemoOverride : state.isDemo;
@@ -137,6 +163,10 @@ export function App() {
   useEffect(() => {
     localStorage.setItem(CHAT_OPEN_KEY, String(isChatOpen));
   }, [isChatOpen]);
+
+  useEffect(() => {
+    saveChatMessages(chatMessages);
+  }, [chatMessages]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -335,10 +365,79 @@ export function App() {
     }));
     // Clear chat data
     localStorage.removeItem(CHAT_OPEN_KEY);
-    localStorage.removeItem("tax-chat-history");
+    localStorage.removeItem(CHAT_HISTORY_KEY);
     localStorage.removeItem("tax-chat-width");
+    setChatMessages([]);
     // Reset chat to open (default for new users)
     setIsChatOpen(true);
+  }
+
+  async function submitChatMessage(prompt: string) {
+    if (!prompt || isChatLoading) return;
+
+    const userMessage: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content: prompt,
+    };
+
+    setChatMessages((prev) => [...prev, userMessage]);
+    setIsChatLoading(true);
+
+    // In demo mode, return a hardcoded response
+    if (effectiveIsDemo) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const assistantMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: DEMO_RESPONSE,
+      };
+      setChatMessages((prev) => [...prev, assistantMessage]);
+      setIsChatLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt,
+          history: chatMessages,
+          returns: effectiveReturns,
+        }),
+      });
+
+      if (!res.ok) {
+        const { error } = await res.json();
+        throw new Error(error || `HTTP ${res.status}`);
+      }
+
+      const { response } = await res.json();
+
+      const assistantMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: response,
+      };
+
+      setChatMessages((prev) => [...prev, assistantMessage]);
+    } catch (err) {
+      console.error("Chat error:", err);
+      const errorMessage: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        content: `Error: ${err instanceof Error ? err.message : "Failed to get response"}`,
+      };
+      setChatMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsChatLoading(false);
+    }
+  }
+
+  function handleNewChat() {
+    setChatMessages([]);
+    saveChatMessages([]);
   }
 
   function handleSelect(id: string) {
@@ -393,6 +492,7 @@ export function App() {
   function renderMainPanel() {
     const commonProps = {
       isChatOpen,
+      isChatLoading,
       onToggleChat: () => setIsChatOpen(!isChatOpen),
       navItems,
       selectedId,
@@ -515,9 +615,12 @@ export function App() {
       {isChatOpen && (
         <ErrorBoundary name="Chat">
           <Chat
-            returns={effectiveReturns}
+            messages={chatMessages}
+            isLoading={isChatLoading}
             hasApiKey={state.hasStoredKey}
             isDemo={effectiveIsDemo}
+            onSubmit={submitChatMessage}
+            onNewChat={handleNewChat}
             onClose={() => setIsChatOpen(false)}
           />
         </ErrorBoundary>

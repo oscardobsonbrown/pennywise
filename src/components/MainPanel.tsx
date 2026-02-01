@@ -7,9 +7,11 @@ import { SummaryStats } from "./SummaryStats";
 import { SummaryTable } from "./SummaryTable";
 import { SummaryReceiptView } from "./SummaryReceiptView";
 import { LoadingView } from "./LoadingView";
+import { BrailleSpinner } from "./BrailleSpinner";
 
 interface CommonProps {
   isChatOpen: boolean;
+  isChatLoading?: boolean;
   onToggleChat: () => void;
   navItems: NavItem[];
   selectedId: string;
@@ -163,9 +165,10 @@ export function MainPanel(props: Props) {
         {!props.isChatOpen && (
           <button
             onClick={props.onToggleChat}
-            className="px-2.5 py-1 text-sm font-medium rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-muted)] flex-shrink-0"
+            className="px-2.5 py-1 text-sm font-medium rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-muted)] flex-shrink-0 flex items-center gap-2"
           >
             Chat
+            {props.isChatLoading && <BrailleSpinner className="text-xs" />}
           </button>
         )}
       </header>
