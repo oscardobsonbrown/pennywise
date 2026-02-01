@@ -5,6 +5,7 @@ import { sampleReturns } from "./data/sampleData";
 import { MainPanel } from "./components/MainPanel";
 import { UploadModal } from "./components/UploadModal";
 import { SettingsModal } from "./components/SettingsModal";
+import { ResetDialog } from "./components/ResetDialog";
 import { OnboardingDialog } from "./components/OnboardingDialog";
 import { Chat, type ChatMessage } from "./components/Chat";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -117,6 +118,7 @@ export function App() {
     return stored === null ? true : stored === "true";
   });
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isResetOpen, setIsResetOpen] = useState(false);
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const [isOnboardingProcessing, setIsOnboardingProcessing] = useState(false);
@@ -162,6 +164,14 @@ export function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
+
+  // Listen for system theme changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => setIsDark(e.matches);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(CHAT_OPEN_KEY, String(isChatOpen));
@@ -509,7 +519,7 @@ export function App() {
   if (state.isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <span className="text-sm text-[var(--color-text-muted)]">Loading...</span>
+        <span className="text-sm text-(--color-text-muted)">Loading...</span>
       </div>
     );
   }
@@ -539,7 +549,9 @@ export function App() {
       selectedId,
       onSelect: handleSelect,
       onOpenStart: () => setIsOnboardingOpen(true),
+      onOpenReset: () => setIsResetOpen(true),
       isDemo: effectiveIsDemo,
+      hasUserData: state.hasUserData,
     };
 
     if (selectedPendingUpload) {
@@ -711,6 +723,12 @@ export function App() {
         onClearData={handleClearData}
       />
 
+      <ResetDialog
+        isOpen={isResetOpen}
+        onClose={() => setIsResetOpen(false)}
+        onReset={handleClearData}
+      />
+
       {/* Get started pill - show in demo mode when onboarding was dismissed */}
       {effectiveIsDemo && onboardingDismissed && !showOnboarding && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
@@ -738,7 +756,7 @@ export function App() {
                 return newValue;
               });
             }}
-            className="px-2 py-1 text-xs font-mono rounded bg-[var(--color-bg-muted)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)]"
+            className="px-2 py-1 text-xs font-mono rounded bg-(--color-bg-muted) border border-(--color-border) text-(--color-text-muted) hover:text-(--color-text) hover:border-(--color-text-muted)"
           >
             {getDemoOverrideLabel(devDemoOverride)}
             <span className="ml-1.5 opacity-50">Shift+D</span>
