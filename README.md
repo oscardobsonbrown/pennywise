@@ -1,3 +1,6 @@
+<img width="2738" height="1956" alt="Screen Shot 2026-02-01 at 09 57 23@2x" src="https://github.com/user-attachments/assets/4ef13599-7433-481d-b2bb-65f18405a6f8" />
+
+
 # TaxUI
 
 TaxUI helps you understand your tax returns in a beautiful interface with clean tables and structured content. You can also chat with your tax history to get advice or find insights in your historical returns.
