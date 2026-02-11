@@ -42,3 +42,18 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Editor
 .cursor/
+
+# npm lockfile (root uses Bun)
+package-lock.json
+
+# Electron
+resources/bun/
+resources/server/
+electron/dist/
+electron/release/
+electron/node_modules/
+
+# Test artifacts
+.test-results.json
+.test-data/
+resources/server-test/
