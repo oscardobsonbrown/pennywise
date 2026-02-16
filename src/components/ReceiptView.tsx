@@ -65,7 +65,7 @@ function TotalRow({
   );
 }
 
-function RatesSection({ rates, stateName }: { rates: TaxReturn["rates"]; stateName?: string }) {
+function RatesSection({ rates }: { rates: TaxReturn["rates"] }) {
   if (!rates) return null;
   return (
     <>
@@ -77,34 +77,20 @@ function RatesSection({ rates, stateName }: { rates: TaxReturn["rates"]; stateNa
         </td>
       </tr>
       <tr>
-        <td className="py-1.5 text-sm">Federal</td>
+        <td className="py-1.5 text-sm">Income Tax</td>
         <td className="py-1.5 text-right text-sm slashed-zero tabular-nums">
           <span className="inline-block w-16">{formatPercent(rates.federal.marginal)}</span>
           <span className="inline-block w-16">{formatPercent(rates.federal.effective)}</span>
         </td>
       </tr>
-      {rates.state && (
+      {rates.medicare && (
         <tr>
-          <td className="py-1.5 text-sm">{stateName || "State"}</td>
+          <td className="py-1.5 text-sm">Medicare Levy</td>
           <td className="py-1.5 text-right text-sm slashed-zero tabular-nums">
-            <span className="inline-block w-16">{formatPercent(rates.state.marginal)}</span>
-            <span className="inline-block w-16">{formatPercent(rates.state.effective)}</span>
+            <span className="inline-block w-16">{formatPercent(rates.medicare.rate)}</span>
+            <span className="inline-block w-16">-</span>
           </td>
         </tr>
-      )}
-      {rates.combined && (
-        <>
-          <tr>
-            <td colSpan={2} className="h-2" />
-          </tr>
-          <tr className="border-t border-(--color-border)">
-            <td className="py-2 pt-4 text-sm font-medium">Combined</td>
-            <td className="py-2 pt-4 text-right text-sm font-medium slashed-zero tabular-nums">
-              <span className="inline-block w-16">{formatPercent(rates.combined.marginal)}</span>
-              <span className="inline-block w-16">{formatPercent(rates.combined.effective)}</span>
-            </td>
-          </tr>
-        </>
       )}
     </>
   );
@@ -123,78 +109,78 @@ export function ReceiptView({ data }: Props) {
         <div className="px-6 pb-6">
           <table className="w-full">
             <tbody className="no-zebra">
+              {/* Location Info */}
+              <CategoryHeader>Taxpayer Location</CategoryHeader>
+              <DataRow label="Suburb" amount={0} />
+              <tr>
+                <td className="py-1.5 text-sm text-(--color-text-muted)">
+                  {data.location.suburb}, {data.location.state} {data.location.postcode}
+                </td>
+                <td />
+              </tr>
+
               <CategoryHeader>Monthly Breakdown</CategoryHeader>
               <DataRow label="Gross monthly" amount={grossMonthly} />
               <DataRow label="Net monthly" amount={netMonthly} />
 
-              <CategoryHeader>Income</CategoryHeader>
+              <CategoryHeader>Assessable Income</CategoryHeader>
               {data.income.items.map((item, i) => (
                 <DataRow key={i} label={item.label} amount={item.amount} />
               ))}
               <TotalRow label="Total income" amount={data.income.total} />
 
-              <CategoryHeader>Federal</CategoryHeader>
-              <DataRow label="Adjusted gross income" amount={data.federal.agi} />
-              {data.federal.deductions.map((item, i) => (
-                <DataRow key={i} label={item.label} amount={item.amount} isMuted />
-              ))}
-              <DataRow label="Taxable income" amount={data.federal.taxableIncome} />
-              <DataRow label="Tax" amount={data.federal.tax} />
-              {data.federal.additionalTaxes.map((item, i) => (
-                <DataRow key={`addtax-${i}`} label={item.label} amount={item.amount} isMuted />
-              ))}
-              {data.federal.credits.map((item, i) => (
-                <DataRow key={i} label={item.label} amount={item.amount} isMuted />
-              ))}
-              {data.federal.payments.map((item, i) => (
-                <DataRow key={i} label={item.label} amount={item.amount} isMuted />
-              ))}
-              <TotalRow
-                label={data.federal.refundOrOwed >= 0 ? "Refund" : "Owed"}
-                amount={data.federal.refundOrOwed}
-                showSign
-              />
+              <CategoryHeader>Deductions</CategoryHeader>
+              {data.deductions.items.length > 0 ? (
+                data.deductions.items.map((item, i) => (
+                  <DataRow key={i} label={item.label} amount={item.amount} isMuted />
+                ))
+              ) : (
+                <DataRow label="No deductions claimed" amount={0} isMuted />
+              )}
+              <TotalRow label="Total deductions" amount={data.deductions.total} />
 
-              {data.states.map((state, i) => (
-                <React.Fragment key={i}>
-                  <CategoryHeader>{state.name}</CategoryHeader>
-                  <DataRow label="Adjusted gross income" amount={state.agi} />
-                  {state.deductions.map((item, j) => (
-                    <DataRow key={j} label={item.label} amount={item.amount} isMuted />
-                  ))}
-                  <DataRow label="Taxable income" amount={state.taxableIncome} />
-                  <DataRow label="Tax" amount={state.tax} />
-                  {state.adjustments.map((item, j) => (
-                    <DataRow key={j} label={item.label} amount={item.amount} />
-                  ))}
-                  {state.payments.map((item, j) => (
-                    <DataRow key={j} label={item.label} amount={item.amount} isMuted />
-                  ))}
-                  <TotalRow
-                    label={state.refundOrOwed >= 0 ? "Refund" : "Owed"}
-                    amount={state.refundOrOwed}
-                    showSign
-                  />
-                </React.Fragment>
-              ))}
+              <DataRow label="Taxable income" amount={data.taxableIncome} />
 
-              <CategoryHeader>Net Position</CategoryHeader>
-              <DataRow
-                label={`Federal ${data.summary.federalAmount >= 0 ? "refund" : "owed"}`}
-                amount={data.summary.federalAmount}
-                showSign
-              />
-              {data.summary.stateAmounts.map((item, i) => (
+              <CategoryHeader>Income Tax Calculation</CategoryHeader>
+              <DataRow label="Gross tax" amount={data.tax.grossTax} />
+              <DataRow label="Medicare Levy" amount={data.tax.medicareLevy} />
+              {(data.tax.medicareLevySurcharge ?? 0) > 0 && (
                 <DataRow
-                  key={i}
-                  label={`${item.state} ${item.amount >= 0 ? "refund" : "owed"}`}
-                  amount={item.amount}
-                  showSign
+                  label="Medicare Levy Surcharge"
+                  amount={data.tax.medicareLevySurcharge ?? 0}
                 />
-              ))}
-              <TotalRow label="Net" amount={data.summary.netPosition} showSign />
+              )}
+              {(data.tax.helpRepayment ?? 0) > 0 && (
+                <DataRow label="HELP/HECS repayment" amount={data.tax.helpRepayment ?? 0} />
+              )}
+              <TotalRow label="Total tax before offsets" amount={data.tax.totalTaxBeforeOffsets} />
 
-              <RatesSection rates={data.rates} stateName={data.states[0]?.name} />
+              <CategoryHeader>Tax Offsets</CategoryHeader>
+              {data.tax.offsets.length > 0 ? (
+                data.tax.offsets.map((item, i) => (
+                  <DataRow key={i} label={item.label} amount={item.amount} isMuted />
+                ))
+              ) : (
+                <DataRow label="No offsets applied" amount={0} isMuted />
+              )}
+              <TotalRow label="Total offsets" amount={data.tax.totalOffsets} />
+
+              <DataRow label="Tax payable" amount={data.tax.taxPayable} />
+
+              <CategoryHeader>PAYG Withholding</CategoryHeader>
+              {data.paygWithholding.items.map((item, i) => (
+                <DataRow key={i} label={item.label} amount={item.amount} isMuted />
+              ))}
+              <TotalRow label="Total tax paid" amount={data.paygWithholding.total} />
+
+              <CategoryHeader>Result</CategoryHeader>
+              <TotalRow
+                label={data.result.isRefund ? "Refund" : "Amount owing"}
+                amount={data.result.refundOrOwing}
+                showSign
+              />
+
+              <RatesSection rates={data.rates} />
             </tbody>
           </table>
         </div>

@@ -1,4 +1,4 @@
-import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
 import { formatCurrency, formatPercent } from "../lib/format";
@@ -88,176 +88,94 @@ function collectRows(returns: Record<number, TaxReturn>): SummaryRow[] {
   }
   addRow("Income", "Total income", (data) => data.income.total, { showChange: true });
 
-  // Federal
-  addHeader("Federal");
-  addRow("Federal", "Adjusted gross income", (data) => data.federal.agi, { showChange: true });
-
-  const federalDeductionLabels = new Set<string>();
+  // Deductions
+  addHeader("Deductions");
+  const deductionLabels = new Set<string>();
   for (const r of allReturns) {
-    for (const item of r.federal.deductions) {
-      federalDeductionLabels.add(item.label);
+    for (const item of r.deductions.items) {
+      deductionLabels.add(item.label);
     }
   }
-  for (const label of federalDeductionLabels) {
+  for (const label of deductionLabels) {
     addRow(
-      "Federal",
+      "Deductions",
       label,
-      (data) => data.federal.deductions.find((i) => i.label === label)?.amount,
+      (data) => data.deductions.items.find((i) => i.label === label)?.amount,
     );
   }
+  addRow("Deductions", "Total deductions", (data) => data.deductions.total);
+  addRow("Deductions", "Taxable income", (data) => data.taxableIncome, { showChange: true });
 
-  addRow("Federal", "Taxable income", (data) => data.federal.taxableIncome, { showChange: true });
-  addRow("Federal", "Tax", (data) => data.federal.tax, { invertPolarity: true, showChange: true });
+  // Tax Calculation
+  addHeader("Tax Calculation");
+  addRow("Tax Calculation", "Gross tax", (data) => data.tax.grossTax, {
+    invertPolarity: true,
+    showChange: true,
+  });
+  addRow("Tax Calculation", "Medicare Levy", (data) => data.tax.medicareLevy, {
+    invertPolarity: true,
+  });
+  addRow(
+    "Tax Calculation",
+    "Medicare Levy Surcharge",
+    (data) => data.tax.medicareLevySurcharge || undefined,
+    { invertPolarity: true },
+  );
+  addRow("Tax Calculation", "HELP/HECS repayment", (data) => data.tax.helpRepayment || undefined, {
+    invertPolarity: true,
+  });
+  addRow("Tax Calculation", "Total tax before offsets", (data) => data.tax.totalTaxBeforeOffsets, {
+    invertPolarity: true,
+    showChange: true,
+  });
 
-  // Federal additional taxes (Schedule 2: SE tax, Additional Medicare, NIIT, AMT)
-  const federalAdditionalTaxLabels = new Set<string>();
+  // Tax Offsets
+  addHeader("Tax Offsets");
+  const offsetLabels = new Set<string>();
   for (const r of allReturns) {
-    for (const item of r.federal.additionalTaxes) {
-      federalAdditionalTaxLabels.add(item.label);
+    for (const item of r.tax.offsets) {
+      offsetLabels.add(item.label);
     }
   }
-  for (const label of federalAdditionalTaxLabels) {
+  for (const label of offsetLabels) {
+    addRow("Tax Offsets", label, (data) => data.tax.offsets.find((i) => i.label === label)?.amount);
+  }
+  addRow("Tax Offsets", "Total offsets", (data) => data.tax.totalOffsets);
+  addRow("Tax Calculation", "Tax payable", (data) => data.tax.taxPayable, {
+    invertPolarity: true,
+    showChange: true,
+  });
+
+  // PAYG Withholding
+  addHeader("PAYG Withholding");
+  const paygLabels = new Set<string>();
+  for (const r of allReturns) {
+    for (const item of r.paygWithholding.items) {
+      paygLabels.add(item.label);
+    }
+  }
+  for (const label of paygLabels) {
     addRow(
-      "Federal",
+      "PAYG Withholding",
       label,
-      (data) => data.federal.additionalTaxes.find((i) => i.label === label)?.amount,
-      { invertPolarity: true },
+      (data) => data.paygWithholding.items.find((i) => i.label === label)?.amount,
     );
   }
+  addRow("PAYG Withholding", "Total tax paid", (data) => data.paygWithholding.total);
 
-  const federalCreditLabels = new Set<string>();
-  for (const r of allReturns) {
-    for (const item of r.federal.credits) {
-      federalCreditLabels.add(item.label);
-    }
-  }
-  for (const label of federalCreditLabels) {
-    addRow("Federal", label, (data) => data.federal.credits.find((i) => i.label === label)?.amount);
-  }
-
-  const federalPaymentLabels = new Set<string>();
-  for (const r of allReturns) {
-    for (const item of r.federal.payments) {
-      federalPaymentLabels.add(item.label);
-    }
-  }
-  for (const label of federalPaymentLabels) {
-    addRow(
-      "Federal",
-      label,
-      (data) => data.federal.payments.find((i) => i.label === label)?.amount,
-    );
-  }
-
-  addRow("Federal", "Refund/Owed", (data) => data.federal.refundOrOwed, { showChange: true });
-
-  // States
-  const allStates = new Set<string>();
-  for (const r of allReturns) {
-    for (const s of r.states) {
-      allStates.add(s.name);
-    }
-  }
-
-  for (const stateName of allStates) {
-    const getState = (data: TaxReturn) => data.states.find((s) => s.name === stateName);
-
-    addHeader(stateName);
-    addRow(stateName, "Adjusted gross income", (data) => getState(data)?.agi, { showChange: true });
-
-    const stateDeductionLabels = new Set<string>();
-    for (const r of allReturns) {
-      const state = r.states.find((s) => s.name === stateName);
-      if (state) {
-        for (const item of state.deductions) {
-          stateDeductionLabels.add(item.label);
-        }
-      }
-    }
-    for (const label of stateDeductionLabels) {
-      addRow(
-        stateName,
-        label,
-        (data) => getState(data)?.deductions.find((i) => i.label === label)?.amount,
-      );
-    }
-
-    addRow(stateName, "Taxable income", (data) => getState(data)?.taxableIncome, {
-      showChange: true,
-    });
-    addRow(stateName, "Tax", (data) => getState(data)?.tax, {
-      invertPolarity: true,
-      showChange: true,
-    });
-
-    const stateAdjustmentLabels = new Set<string>();
-    for (const r of allReturns) {
-      const state = r.states.find((s) => s.name === stateName);
-      if (state) {
-        for (const item of state.adjustments) {
-          stateAdjustmentLabels.add(item.label);
-        }
-      }
-    }
-    for (const label of stateAdjustmentLabels) {
-      addRow(
-        stateName,
-        label,
-        (data) => getState(data)?.adjustments.find((i) => i.label === label)?.amount,
-      );
-    }
-
-    const statePaymentLabels = new Set<string>();
-    for (const r of allReturns) {
-      const state = r.states.find((s) => s.name === stateName);
-      if (state) {
-        for (const item of state.payments) {
-          statePaymentLabels.add(item.label);
-        }
-      }
-    }
-    for (const label of statePaymentLabels) {
-      addRow(
-        stateName,
-        label,
-        (data) => getState(data)?.payments.find((i) => i.label === label)?.amount,
-      );
-    }
-
-    addRow(stateName, "Refund/Owed", (data) => getState(data)?.refundOrOwed, { showChange: true });
-  }
-
-  // Net Position
-  addHeader("Net Position");
-  addRow("Net Position", "Federal", (data) => data.summary.federalAmount, { showChange: true });
-  for (const stateName of allStates) {
-    addRow(
-      "Net Position",
-      stateName,
-      (data) => data.summary.stateAmounts.find((s) => s.state === stateName)?.amount,
-      { showChange: true },
-    );
-  }
-  addRow("Net Position", "Net total", (data) => data.summary.netPosition, { showChange: true });
+  // Result
+  addHeader("Result");
+  addRow("Result", "Refund/Owing", (data) => data.result.refundOrOwing, { showChange: true });
 
   // Rates
   addHeader("Rates");
-  addRow("Rates", "Federal marginal", (data) => data.rates?.federal.marginal, {
+  addRow("Rates", "Marginal rate", (data) => data.rates?.federal.marginal, {
     invertPolarity: true,
   });
-  addRow("Rates", "Federal effective", (data) => data.rates?.federal.effective, {
+  addRow("Rates", "Effective rate", (data) => data.rates?.federal.effective, {
     invertPolarity: true,
   });
-  addRow("Rates", "State marginal", (data) => data.rates?.state?.marginal, {
-    invertPolarity: true,
-  });
-  addRow("Rates", "State effective", (data) => data.rates?.state?.effective, {
-    invertPolarity: true,
-  });
-  addRow("Rates", "Combined marginal", (data) => data.rates?.combined?.marginal, {
-    invertPolarity: true,
-  });
-  addRow("Rates", "Combined effective", (data) => data.rates?.combined?.effective, {
+  addRow("Rates", "Medicare Levy rate", (data) => data.rates?.medicare?.rate, {
     invertPolarity: true,
   });
 
@@ -270,19 +188,17 @@ function formatValue(value: number | undefined, isRate: boolean): string {
   return formatCurrency(value);
 }
 
-const columnHelper = createColumnHelper<SummaryRow>();
-
 export function SummaryTable({ returns }: Props) {
   const years = Object.keys(returns)
     .map(Number)
-    .sort((a, b) => a - b); // Oldest first
+    .sort((a, b) => a - b);
 
   const rows = useMemo(() => collectRows(returns), [returns]);
 
-  const columns = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cols: ColumnDef<SummaryRow, any>[] = [
-      columnHelper.accessor("label", {
+  const columns = useMemo<ColumnDef<SummaryRow>[]>(() => {
+    const cols: ColumnDef<SummaryRow>[] = [
+      {
+        accessorKey: "label",
         header: "Line Item",
         cell: (info) => {
           const row = info.row.original;
@@ -297,10 +213,10 @@ export function SummaryTable({ returns }: Props) {
             row.label.startsWith("−") || row.label.startsWith("–") || row.label.startsWith("- ");
           return (
             <span
-              title={info.getValue()}
+              title={String(info.getValue())}
               className={`block truncate ${isDeduction ? "text-(--color-text-muted)" : "text-(--color-text)"}`}
             >
-              {info.getValue()}
+              {String(info.getValue())}
             </span>
           );
         },
@@ -308,63 +224,62 @@ export function SummaryTable({ returns }: Props) {
           sticky: true,
         } satisfies ColumnMeta,
         size: 240,
-      }),
+      },
     ];
 
     years.forEach((year, i) => {
       const prevYear = i > 0 ? years[i - 1] : undefined;
 
-      cols.push(
-        columnHelper.accessor((row) => row.values[year], {
-          id: `year-${year}`,
-          header: () => <span className="slashed-zero tabular-nums">{year}</span>,
-          cell: (info) => {
-            const row = info.row.original;
-            if (row.isHeader) {
-              return null;
-            }
+      cols.push({
+        accessorFn: (row) => row.values[year],
+        id: `year-${year}`,
+        header: () => <span className="slashed-zero tabular-nums">{year}</span>,
+        cell: (info) => {
+          const row = info.row.original;
+          if (row.isHeader) {
+            return null;
+          }
 
-            const value = info.getValue() as number | undefined;
-            const isRate = row.category === "Rates";
-            const prevValue = prevYear !== undefined ? row.values[prevYear] : undefined;
+          const value = info.getValue() as number | undefined;
+          const isRate = row.category === "Rates";
+          const prevValue = prevYear !== undefined ? row.values[prevYear] : undefined;
 
-            const isDeduction =
-              row.label.startsWith("−") || row.label.startsWith("–") || row.label.startsWith("- ");
+          const isDeduction =
+            row.label.startsWith("−") || row.label.startsWith("–") || row.label.startsWith("- ");
 
-            const isEmpty = value === undefined;
+          const isEmpty = value === undefined;
 
-            return (
-              <div className="flex items-center justify-end gap-1.5 text-right slashed-zero tabular-nums">
-                {prevYear !== undefined && row.showChange && (
-                  <span className="hidden sm:inline">
-                    <ChangeCell
-                      current={value}
-                      previous={prevValue}
-                      invertPolarity={row.invertPolarity}
-                    />
-                  </span>
-                )}
-                <span
-                  className={
-                    isEmpty
-                      ? "text-(--color-text-tertiary)"
-                      : isDeduction
-                        ? "text-(--color-text-muted)"
-                        : "text-(--color-text)"
-                  }
-                >
-                  {formatValue(value, isRate)}
+          return (
+            <div className="flex items-center justify-end gap-1.5 text-right slashed-zero tabular-nums">
+              {prevYear !== undefined && row.showChange && (
+                <span className="hidden sm:inline">
+                  <ChangeCell
+                    current={value}
+                    previous={prevValue}
+                    invertPolarity={row.invertPolarity}
+                  />
                 </span>
-              </div>
-            );
-          },
-          meta: {
-            align: "right",
-            borderLeft: i > 0,
-          } satisfies ColumnMeta,
-          size: 160,
-        }),
-      );
+              )}
+              <span
+                className={
+                  isEmpty
+                    ? "text-(--color-text-tertiary)"
+                    : isDeduction
+                      ? "text-(--color-text-muted)"
+                      : "text-(--color-text)"
+                }
+              >
+                {formatValue(value, isRate)}
+              </span>
+            </div>
+          );
+        },
+        meta: {
+          align: "right",
+          borderLeft: i > 0,
+        } satisfies ColumnMeta,
+        size: 160,
+      });
     });
 
     return cols;
