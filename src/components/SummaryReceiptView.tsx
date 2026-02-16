@@ -52,45 +52,40 @@ export function SummaryReceiptView({ returns }: Props) {
       <Separator />
       <Row label="Total income" amount={data.totalIncome} isTotal />
 
-      <SectionHeader>FEDERAL TOTALS</SectionHeader>
+      <SectionHeader>DEDUCTIONS</SectionHeader>
       <Separator />
-      <Row label="Avg. adjusted gross income" amount={Math.round(data.avgAgi)} />
-      {data.federalDeductions.map((item, i) => (
+      {data.deductions.map((item, i) => (
         <Row key={i} label={`Total ${item.label.toLowerCase()}`} amount={item.amount} isMuted />
       ))}
       <Separator />
-      <Row label="Avg. taxable income" amount={Math.round(data.avgTaxableIncome)} />
-      <Row label="Total federal tax" amount={data.totalFederalTax} />
+      <Row label="Total deductions" amount={data.totalDeductions} isTotal />
 
-      {data.states.length > 0 && (
-        <>
-          <SectionHeader>STATE TOTALS</SectionHeader>
-          <Separator />
-          {data.states.map((state, i) => (
-            <Row key={i} label={`${state.name} tax`} amount={state.tax} />
-          ))}
-          <Separator />
-          <Row label="Total state tax" amount={data.totalStateTax} isTotal />
-        </>
+      <SectionHeader>INCOME TAX</SectionHeader>
+      <Separator />
+      <Row label="Avg. taxable income" amount={Math.round(data.avgTaxableIncome)} />
+      <Row label="Gross tax" amount={data.totalGrossTax} />
+      {data.totalMedicareLevy > 0 && <Row label="Medicare levy" amount={data.totalMedicareLevy} />}
+      {data.totalMedicareLevySurcharge > 0 && (
+        <Row label="Medicare levy surcharge" amount={data.totalMedicareLevySurcharge} />
       )}
+      {data.totalHelpRepayment > 0 && (
+        <Row label="HELP/HECS repayment" amount={data.totalHelpRepayment} />
+      )}
+      <Separator />
+      <Row label="Total offsets" amount={data.totalOffsets} showSign isMuted />
+      <DoubleSeparator />
+      <Row label="Tax payable" amount={data.totalTaxPayable} isTotal />
+
+      <SectionHeader>PAYG WITHHOLDING</SectionHeader>
+      <Separator />
+      <Row label="Total PAYG withheld" amount={data.totalPaygWithheld} />
 
       <SectionHeader>NET POSITION</SectionHeader>
       <Separator />
-      <Row
-        label={`Federal ${data.totalFederalRefund >= 0 ? "refund" : "owed"}`}
-        amount={data.totalFederalRefund}
-        showSign
-      />
-      {data.stateRefunds.map((item, i) => (
-        <Row
-          key={i}
-          label={`${item.state} ${item.amount >= 0 ? "refund" : "owed"}`}
-          amount={item.amount}
-          showSign
-        />
-      ))}
+      {data.totalRefund > 0 && <Row label="Total refund" amount={data.totalRefund} />}
+      {data.totalOwing < 0 && <Row label="Total owing" amount={data.totalOwing} showSign />}
       <DoubleSeparator />
-      <Row label="Total net" amount={data.totalNetPosition} isTotal showSign />
+      <Row label="Total net" amount={data.netPosition} isTotal showSign />
 
       {data.rates && (
         <>
@@ -102,26 +97,16 @@ export function SummaryReceiptView({ returns }: Props) {
             <span className="w-20 text-right">Effective</span>
           </div>
           <RateRow
-            label="Federal"
+            label="Income tax"
             marginal={formatPercent(data.rates.federal.marginal)}
             effective={formatPercent(data.rates.federal.effective)}
           />
-          {data.rates.state && (
+          {data.rates.medicare && (
             <RateRow
-              label="State"
-              marginal={formatPercent(data.rates.state.marginal)}
-              effective={formatPercent(data.rates.state.effective)}
+              label="Medicare"
+              marginal={formatPercent(data.rates.medicare.rate)}
+              effective={formatPercent(data.rates.medicare.rate)}
             />
-          )}
-          {data.rates.combined && (
-            <>
-              <Separator />
-              <RateRow
-                label="Combined"
-                marginal={formatPercent(data.rates.combined.marginal)}
-                effective={formatPercent(data.rates.combined.effective)}
-              />
-            </>
           )}
         </>
       )}

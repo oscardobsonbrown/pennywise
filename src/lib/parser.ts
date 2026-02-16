@@ -128,7 +128,7 @@ function mergeReturns(returns: TaxReturn[]): TaxReturn {
     return first;
   }
 
-  // Start with the first result as the base (usually has the main 1040 data)
+  // Start with the first result as the base
   const base = first;
 
   for (let i = 1; i < returns.length; i++) {
@@ -142,47 +142,41 @@ function mergeReturns(returns: TaxReturn[]): TaxReturn {
       base.income.total = chunk.income.total;
     }
 
-    // Merge federal deductions, additional taxes, credits, payments
-    base.federal.deductions = mergeLabeledAmounts(
-      base.federal.deductions,
-      chunk.federal.deductions,
-    );
-    base.federal.additionalTaxes = mergeLabeledAmounts(
-      base.federal.additionalTaxes,
-      chunk.federal.additionalTaxes,
-    );
-    base.federal.credits = mergeLabeledAmounts(base.federal.credits, chunk.federal.credits);
-    base.federal.payments = mergeLabeledAmounts(base.federal.payments, chunk.federal.payments);
+    // Merge deductions
+    base.deductions.items = mergeLabeledAmounts(base.deductions.items, chunk.deductions.items);
 
-    // Merge state returns
-    for (const chunkState of chunk.states) {
-      const existingState = base.states.find((s) => s.name === chunkState.name);
-      if (existingState) {
-        existingState.deductions = mergeLabeledAmounts(
-          existingState.deductions,
-          chunkState.deductions,
-        );
-        existingState.adjustments = mergeLabeledAmounts(
-          existingState.adjustments,
-          chunkState.adjustments,
-        );
-        existingState.payments = mergeLabeledAmounts(existingState.payments, chunkState.payments);
-      } else {
-        base.states.push(chunkState);
-      }
+    // Use the higher deduction total if found (more negative)
+    if (chunk.deductions.total < base.deductions.total) {
+      base.deductions.total = chunk.deductions.total;
     }
 
-    // Merge dependents
-    const existingDependentNames = new Set(base.dependents.map((d) => d.name));
-    for (const dep of chunk.dependents) {
-      if (!existingDependentNames.has(dep.name)) {
-        base.dependents.push(dep);
-      }
-    }
+    // Merge tax offsets
+    base.tax.offsets = mergeLabeledAmounts(base.tax.offsets, chunk.tax.offsets);
+
+    // Merge PAYG withholding items
+    base.paygWithholding.items = mergeLabeledAmounts(
+      base.paygWithholding.items,
+      chunk.paygWithholding.items,
+    );
 
     // Use rates if base doesn't have them
     if (!base.rates && chunk.rates) {
       base.rates = chunk.rates;
+    }
+
+    // Use location if base doesn't have it
+    if (!base.location.postcode && chunk.location.postcode) {
+      base.location = chunk.location;
+    }
+
+    // Use spouse info if base doesn't have it
+    if (!base.spouse && chunk.spouse) {
+      base.spouse = chunk.spouse;
+    }
+
+    // Merge private health insurance info
+    if (!base.privateHealthInsurance && chunk.privateHealthInsurance) {
+      base.privateHealthInsurance = chunk.privateHealthInsurance;
     }
   }
 
@@ -284,7 +278,7 @@ export async function extractYearFromPdf(
             },
             {
               type: "text",
-              text: "What tax year is this document for? Respond with ONLY the 4-digit year (e.g., 2023). If you cannot determine the year, respond with 'UNKNOWN'.",
+              text: "What Australian financial year is this tax return for? Respond with ONLY the 4-digit ending year (e.g., 2023 for the 2022-23 financial year). If you cannot determine the year, respond with 'UNKNOWN'.",
             },
           ],
         },
