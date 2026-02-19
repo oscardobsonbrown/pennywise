@@ -2,6 +2,8 @@ import "./index.css";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { Agentation } from "agentation";
+
 import { Chat, type ChatMessage } from "./components/Chat";
 import { DemoDialog } from "./components/DemoDialog";
 import { DevTools } from "./components/DevTools";
@@ -912,6 +914,8 @@ export function App() {
           onUpdateOverrideChange={setDevUpdateOverride}
         />
       )}
+
+      {state.isDev && <Agentation />}
     </div>
   );
 }
