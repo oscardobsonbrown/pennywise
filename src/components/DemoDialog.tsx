@@ -19,7 +19,7 @@ interface ReleaseInfo {
 
 // Start fetching immediately on module load so data is ready before the dialog opens
 const releasePromise: Promise<ReleaseInfo> = fetch(
-  "https://api.github.com/repos/brianlovin/tax-ui/releases/latest",
+  "https://api.github.com/repos/oscardobsonbrown/pennywise/releases/latest",
 )
   .then((res) => {
     if (!res.ok) throw new Error("Failed to fetch");
@@ -60,7 +60,7 @@ function getDownloadUrl(
   return null;
 }
 
-const RELEASES_URL = "https://github.com/brianlovin/tax-ui/releases/latest";
+const RELEASES_URL = "https://github.com/oscardobsonbrown/pennywise/releases/latest";
 
 interface Props {
   isOpen: boolean;
@@ -188,8 +188,8 @@ export function DemoDialog({ isOpen, onClose, skipOpenAnimation }: Props) {
             <div className="space-y-4 pt-4">
               <div className="rounded-lg bg-(--color-bg-muted) p-3 font-mono text-sm">
                 <div className="text-(--color-text-muted)"># clone and run</div>
-                <div>git clone https://github.com/brianlovin/tax-ui</div>
-                <div>cd tax-ui</div>
+                <div>git clone https://github.com/oscardobsonbrown/pennywise</div>
+                <div>cd pennywise</div>
                 <div>bun install</div>
                 <div>bun run dev</div>
               </div>

@@ -84,10 +84,10 @@ function useElectronUpdater(devOverride: UpdateStatus | null) {
 
 const CHAT_OPEN_KEY = "tax-chat-open";
 const CHAT_HISTORY_KEY = "tax-chat-history";
-const DEMO_RESPONSE = `This is a demo with sample data. To chat about your own tax returns, clone and run [Tax UI](https://github.com/brianlovin/tax-ui) locally:
+const DEMO_RESPONSE = `This is a demo with sample data. To chat about your own tax returns, clone and run [Pennywise](https://github.com/oscardobsonbrown/pennywise) locally:
 \`\`\`
-git clone https://github.com/brianlovin/tax-ui
-cd tax-ui
+git clone https://github.com/oscardobsonbrown/pennywise
+cd pennywise
 bun install
 bun run dev
 \`\`\`

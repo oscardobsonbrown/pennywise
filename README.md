@@ -1,14 +1,14 @@
-<img width="1280" height="640" alt="tax-ui-github-og" src="https://github.com/user-attachments/assets/780f6743-669c-44e5-96fb-cc65249b5c75" />
+<img width="1280" height="640" alt="pennywise-github-og" src="https://github.com/user-attachments/assets/780f6743-669c-44e5-96fb-cc65249b5c75" />
 
-# Tax UI
+# Pennywise
 
-Tax UI helps you visualize and understand your tax returns in a beautiful UI. Chat with your tax history to get advice or find insights in your historical returns.
+Pennywise helps you visualize and understand your tax returns in a beautiful UI. Chat with your tax history to get advice or find insights in your historical returns.
 
 ## Get Started
 
 ### 1. Install Bun
 
-Tax UI runs on [Bun](https://bun.sh), a fast JavaScript runtime.
+Pennywise runs on [Bun](https://bun.sh), a fast JavaScript runtime.
 
 ```bash
 curl -fsSL https://bun.sh/install | bash
@@ -16,13 +16,13 @@ curl -fsSL https://bun.sh/install | bash
 
 ### 2. Get an Anthropic API Key
 
-Tax UI uses Claude to parse and analyze your tax returns. Get an API key from [console.anthropic.com](https://console.anthropic.com/settings/keys).
+Pennywise uses Claude to parse and analyze your tax returns. Get an API key from [console.anthropic.com](https://console.anthropic.com/settings/keys).
 
-### 3. Run Tax UI
+### 3. Run Pennywise
 
 ```bash
-git clone https://github.com/brianlovin/tax-ui
-cd tax-ui
+git clone https://github.com/oscardobsonbrown/pennywise
+cd pennywise
 bun install
 bun run dev
 ```
@@ -49,15 +49,15 @@ Anthropic's commercial terms prohibit training models on API customer data. See 
 
 ### Verify It Yourself
 
-Tax UI is open source. You can review the code yourself, or ask an AI to audit it for you. Copy the prompt below and paste it into Claude, ChatGPT, or any other AI assistant:
+Pennywise is open source. You can review the code yourself, or ask an AI to audit it for you. Copy the prompt below and paste it into Claude, ChatGPT, or any other AI assistant:
 
 <details>
 <summary>Copy security audit prompt</summary>
 
 ```
-I want you to perform a security and privacy audit of Tax UI, an open source tax return parser.
+I want you to perform a security and privacy audit of Pennywise, an open source tax return parser.
 
-Repository: https://github.com/brianlovin/tax-ui
+Repository: https://github.com/oscardobsonbrown/pennywise
 
 Please analyze the source code and verify:
 

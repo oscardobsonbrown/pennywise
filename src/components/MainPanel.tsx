@@ -271,7 +271,9 @@ export function MainPanel(props: Props) {
               </MenuItem>
             )}
 
-            <MenuItem onClick={() => window.open("https://github.com/brianlovin/tax-ui", "_blank")}>
+            <MenuItem
+              onClick={() => window.open("https://github.com/oscardobsonbrown/pennywise", "_blank")}
+            >
               <div className="flex h-5 w-5 items-center justify-center">
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor">
                   <path

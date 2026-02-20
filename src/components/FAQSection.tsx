@@ -6,7 +6,7 @@ import { Button } from "./Button";
 
 const AI_PRIVACY_PROMPT = `I want you to perform a security and privacy audit of Tax UI, an open source tax return parser.
 
-Repository: https://github.com/brianlovin/tax-ui
+Repository: https://github.com/oscardobsonbrown/pennywise
 
 Please analyze the source code and verify:
 
