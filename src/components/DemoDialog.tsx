@@ -17,25 +17,23 @@ interface ReleaseInfo {
   assets: ReleaseAsset[];
 }
 
-// Start fetching immediately on module load so data is ready before the dialog opens
-const releasePromise: Promise<ReleaseInfo> = fetch(
-  "https://api.github.com/repos/oscardobsonbrown/pennywise/releases/latest",
-)
-  .then((res) => {
-    if (!res.ok) throw new Error("Failed to fetch");
-    return res.json();
-  })
-  .then((data) => ({
-    version: (data.tag_name as string).replace(/^v/, ""),
-    assets: data.assets as ReleaseAsset[],
-  }));
-
 function useLatestRelease() {
   const [release, setRelease] = useState<ReleaseInfo | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    releasePromise.then(setRelease).catch(() => setError(true));
+    fetch("https://api.github.com/repos/oscardobsonbrown/pennywise/releases/latest")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch");
+        return res.json();
+      })
+      .then((data) => {
+        setRelease({
+          version: (data.tag_name as string).replace(/^v/, ""),
+          assets: data.assets as ReleaseAsset[],
+        });
+      })
+      .catch(() => setError(true));
   }, []);
 
   return { release, error };
