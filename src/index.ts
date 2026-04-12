@@ -37,6 +37,7 @@ import {
   saveApiKey,
   saveBankStatement,
   saveExpenseEntry,
+  savePayslip,
   saveProvider,
   saveReturn,
   saveTransaction,
@@ -401,13 +402,17 @@ const routes: Record<string, any> = {
           return Response.json({ error: "Document is not a payslip" }, { status: 400 });
         }
 
-        const payslip = {
+        const now = new Date().toISOString();
+        const payslip: Payslip = {
           ...result.data,
           id: crypto.randomUUID(),
           sourceFile: file.name,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        } as Payslip;
+          createdAt: now,
+          updatedAt: now,
+        };
+
+        await savePayslip(payslip);
+        return Response.json(payslip);
       } catch (error) {
         console.error("Payslip parse error:", error);
         const message = error instanceof Error ? error.message : "Unknown error";
@@ -462,18 +467,22 @@ const routes: Record<string, any> = {
           return Response.json({ error: "Document is not a bank statement" }, { status: 400 });
         }
 
-        const statement = {
+        const now = new Date().toISOString();
+        const statement: BankStatement = {
           ...result.data,
           id: crypto.randomUUID(),
+          transactions: result.data.transactions.map((tx) => ({
+            ...tx,
+            id: crypto.randomUUID(),
+          })),
           sourceFile: file.name,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        } as BankStatement;
+          createdAt: now,
+          updatedAt: now,
+        };
 
         await saveBankStatement(statement);
 
         // Create transactions from bank statement transactions
-        const now = new Date().toISOString();
         const createdTransactions: Transaction[] = [];
 
         for (const tx of statement.transactions) {

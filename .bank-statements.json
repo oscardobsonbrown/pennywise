@@ -1,2707 +1,797 @@
 [
   {
-    "id": "9364ec66-8267-4f12-81f9-ceb4c56600ee",
     "bank": {
       "name": "ubank",
-      "accountName": "Oscar George Dobson-Brown",
-      "accountNumber": "1046 3579"
+      "accountName": "Mia Ellis",
+      "accountNumber": "9421 7809"
     },
     "period": {
-      "startDate": "2026-02-01",
-      "endDate": "2026-02-28"
+      "startDate": "2026-04-01",
+      "endDate": "2026-04-30"
     },
-    "openingBalance": 155.91,
-    "closingBalance": 554.09,
+    "openingBalance": 482.75,
+    "closingBalance": -231.92,
+    "totalCredits": 6350.92,
+    "totalDebits": 7065.59,
     "transactions": [
       {
-        "id": "20260201-1",
-        "date": "2026-02-01",
-        "description": "Sq *Roasting Warehouse Sosouth Fremantau",
-        "amount": -66.08,
-        "balance": 89.83,
+        "date": "2026-04-01",
+        "description": "Transfer to Bayswater Rent Trust",
+        "amount": -1050,
+        "balance": -567.25,
+        "category": "Rent",
+        "type": "debit",
+        "id": "989412c5-b2d3-46ee-b3a6-17eb9716211c"
+      },
+      {
+        "date": "2026-04-01",
+        "description": "Coles North Perth WA",
+        "amount": -64.35,
+        "balance": -631.6,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "4460422f-20b2-4fe6-8070-3e2b1cfa683d"
+      },
+      {
+        "date": "2026-04-01",
+        "description": "Transperth SmartRider Autoload",
+        "amount": -30,
+        "balance": -661.6,
+        "category": "Transport",
+        "type": "debit",
+        "id": "bcfcc209-618f-4351-9859-6cc8eaf9c415"
+      },
+      {
+        "date": "2026-04-02",
+        "description": "Chemist Warehouse Perth City WA",
+        "amount": -18.49,
+        "balance": -680.09,
+        "category": "Pharmacy",
+        "type": "debit",
+        "id": "899ab1b4-bc00-4710-82eb-ec80f8944f0e"
+      },
+      {
+        "date": "2026-04-02",
+        "description": "HBF Health Insurance Perth WA",
+        "amount": -148.75,
+        "balance": -828.84,
+        "category": "Insurance",
+        "type": "debit",
+        "id": "54b71de9-dcc3-4dea-b2db-5532f0349b17"
+      },
+      {
+        "date": "2026-04-02",
+        "description": "Transfer from Everyday Saver",
+        "amount": 300,
+        "balance": -528.84,
+        "category": "Transfer",
+        "type": "credit",
+        "id": "960685a6-8939-49c4-8b70-55bb8d107e60"
+      },
+      {
+        "date": "2026-04-03",
+        "description": "Mary Street Bakery Highgate WA",
+        "amount": -15.8,
+        "balance": -544.64,
         "category": "Food & Dining",
-        "type": "debit"
+        "type": "debit",
+        "id": "5f671bf5-9066-4956-8eba-d9de285b6ea8"
       },
       {
-        "id": "20260201-2",
-        "date": "2026-02-01",
-        "description": "Transfer",
-        "amount": -50,
-        "balance": 39.83,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260202-1",
-        "date": "2026-02-02",
-        "description": "Grilld Pty Ltd Richmond AU",
-        "amount": -35.4,
-        "balance": 4.43,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260202-2",
-        "date": "2026-02-02",
-        "description": "Direct Credit Stakeshop Pty Lt - Withdrawal From St",
-        "amount": 2216,
-        "balance": 2220.43,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "20260202-3",
-        "date": "2026-02-02",
-        "description": "Transfer",
-        "amount": -2120.43,
-        "balance": 100,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260203-1",
-        "date": "2026-02-03",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 150,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260203-2",
-        "date": "2026-02-03",
-        "description": "Transfer",
-        "amount": 70.43,
-        "balance": 220.43,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260203-3",
-        "date": "2026-02-03",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 206.93,
-        "type": "debit"
-      },
-      {
-        "id": "20260203-4",
-        "date": "2026-02-03",
-        "description": "The Herdsman Market\\churchlands AU",
-        "amount": -35.47,
-        "balance": 171.46,
+        "date": "2026-04-03",
+        "description": "Woolworths Highgate WA",
+        "amount": -82.16,
+        "balance": -626.8,
         "category": "Groceries",
-        "type": "debit"
+        "type": "debit",
+        "id": "a9f641bf-966d-4784-9d35-bb95867d2a18"
       },
       {
-        "id": "20260203-5",
-        "date": "2026-02-03",
-        "description": "The Good Grocer Boul City Beach AU",
-        "amount": -20,
-        "balance": 151.46,
-        "category": "Groceries",
-        "type": "debit"
+        "date": "2026-04-03",
+        "description": "BP Connect East Perth WA",
+        "amount": -68.42,
+        "balance": -695.22,
+        "category": "Fuel",
+        "type": "debit",
+        "id": "b2444a02-92f2-462f-a56b-f3ec4f424f20"
       },
       {
-        "id": "20260204-1",
-        "date": "2026-02-04",
-        "description": "Factory Ai Factory.ai Us",
-        "amount": -28.83,
-        "balance": 122.63,
-        "category": "Software/Subscription",
-        "type": "debit"
-      },
-      {
-        "id": "20260204-2",
-        "date": "2026-02-04",
-        "description": "Transfer",
-        "amount": 10,
-        "balance": 132.63,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260204-3",
-        "date": "2026-02-04",
-        "description": "Coles 0481 Perth AU",
-        "amount": -10.15,
-        "balance": 122.48,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "20260205-1",
-        "date": "2026-02-05",
-        "description": "Perth Festival Crawley AU",
-        "amount": -118,
-        "balance": 4.48,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "20260205-2",
-        "date": "2026-02-05",
-        "description": "Transfer",
-        "amount": 90,
-        "balance": 94.48,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260205-3",
-        "date": "2026-02-05",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 80.98,
-        "type": "debit"
-      },
-      {
-        "id": "20260205-4",
-        "date": "2026-02-05",
-        "description": "Transfer",
-        "amount": 100,
-        "balance": 180.98,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260205-5",
-        "date": "2026-02-05",
-        "description": "The Flower Market WA Churchlands AU",
-        "amount": -82.95,
-        "balance": 98.03,
+        "date": "2026-04-04",
+        "description": "The Re Store Leederville WA",
+        "amount": -36.5,
+        "balance": -731.72,
         "category": "Shopping",
-        "type": "debit"
+        "type": "debit",
+        "id": "b4542b41-d55e-41b2-b457-a4161456ffc1"
       },
       {
-        "id": "20260205-6",
-        "date": "2026-02-05",
-        "description": "North Beach Pharmacy North Beach WA AU",
-        "amount": -59.99,
-        "balance": 38.04,
-        "category": "Health",
-        "type": "debit"
+        "date": "2026-04-04",
+        "description": "Picabar Northbridge WA",
+        "amount": -42.8,
+        "balance": -774.52,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "039d0b31-168c-484e-b65e-7b3778835ef4"
       },
       {
-        "id": "20260207-1",
-        "date": "2026-02-07",
-        "description": "Amznprimea* Amznprimea Sydney South AU",
+        "date": "2026-04-05",
+        "description": "Netflix.com Sydney AU",
+        "amount": -18.99,
+        "balance": -793.51,
+        "category": "Entertainment",
+        "type": "debit",
+        "id": "aa001c18-ad0f-4146-bf49-afc0caffbd4f"
+      },
+      {
+        "date": "2026-04-05",
+        "description": "IGA East Perth WA",
+        "amount": -21.7,
+        "balance": -815.21,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "ae8f7bc3-9ce9-4125-8a51-d4dcad92a36c"
+      },
+      {
+        "date": "2026-04-06",
+        "description": "Synergy Electricity Perth WA",
+        "amount": -184.63,
+        "balance": -999.84,
+        "category": "Utilities",
+        "type": "debit",
+        "id": "de759e26-9def-407c-8646-246d5c4bdc33"
+      },
+      {
+        "date": "2026-04-06",
+        "description": "Payment from Sam Lee",
+        "amount": 42,
+        "balance": -957.84,
+        "category": "Transfer",
+        "type": "credit",
+        "id": "8797bc23-7414-4b19-94ca-fbebd1b2da16"
+      },
+      {
+        "date": "2026-04-06",
+        "description": "Uber Trip Help.uber.com AU",
+        "amount": -19.26,
+        "balance": -977.1,
+        "category": "Transport",
+        "type": "debit",
+        "id": "7e5f8e35-44c4-4f13-b46d-0959b1143859"
+      },
+      {
+        "date": "2026-04-07",
+        "description": "Aussie Broadband Monthly",
+        "amount": -89,
+        "balance": -1066.1,
+        "category": "Utilities",
+        "type": "debit",
+        "id": "5aa89bd8-593c-4573-ad86-590b71bf4c84"
+      },
+      {
+        "date": "2026-04-07",
+        "description": "Officeworks Subiaco WA",
+        "amount": -27.85,
+        "balance": -1093.95,
+        "category": "Shopping",
+        "type": "debit",
+        "id": "2a752355-08af-4867-88e3-c1278860602e"
+      },
+      {
+        "date": "2026-04-08",
+        "description": "Water Corporation Perth WA",
+        "amount": -73.12,
+        "balance": -1167.07,
+        "category": "Utilities",
+        "type": "debit",
+        "id": "25716141-07e4-4aa3-950c-b4ed9f3d61a1"
+      },
+      {
+        "date": "2026-04-08",
+        "description": "Woolworths Murray Street WA",
+        "amount": -51.44,
+        "balance": -1218.51,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "d340875f-7a8c-417d-b4a1-37f1fb82abe9"
+      },
+      {
+        "date": "2026-04-08",
+        "description": "Transfer to Tax Buffer",
+        "amount": -250,
+        "balance": -1468.51,
+        "category": "Transfer",
+        "type": "debit",
+        "id": "eaea96ac-c7d7-482b-b5ef-fa2bf19c2078"
+      },
+      {
+        "date": "2026-04-09",
+        "description": "Direct Credit CBA - WeMoney Salary",
+        "amount": 2760.46,
+        "balance": 1291.95,
+        "category": "Income",
+        "type": "credit",
+        "id": "2674f8fa-585d-48e4-bfd7-4b5ea976ee5c"
+      },
+      {
+        "date": "2026-04-09",
+        "description": "Transfer to Everyday Saver",
+        "amount": -900,
+        "balance": 391.95,
+        "category": "Transfer",
+        "type": "debit",
+        "id": "df7719ea-442f-4ef7-aaa9-88e9d443f7c1"
+      },
+      {
+        "date": "2026-04-09",
+        "description": "Transperth SmartRider Autoload",
+        "amount": -30,
+        "balance": 361.95,
+        "category": "Transport",
+        "type": "debit",
+        "id": "5ac7c530-1bed-4aaa-94d0-49290ec632b1"
+      },
+      {
+        "date": "2026-04-09",
+        "description": "La Veen Coffee Perth WA",
+        "amount": -8.2,
+        "balance": 353.75,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "c5671c45-0a08-4cc4-b74e-d9b547827502"
+      },
+      {
+        "date": "2026-04-10",
+        "description": "ALDI Inglewood WA",
+        "amount": -74.28,
+        "balance": 279.47,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "29194d47-8958-4e7e-b934-f427c77567f1"
+      },
+      {
+        "date": "2026-04-10",
+        "description": "Apple.com/bill Sydney AU",
+        "amount": -14.99,
+        "balance": 264.48,
+        "category": "Entertainment",
+        "type": "debit",
+        "id": "a65a8ad7-c19b-4c07-bdaa-49d65298d740"
+      },
+      {
+        "date": "2026-04-10",
+        "description": "Shell Coles Express Mt Lawley",
+        "amount": -61.9,
+        "balance": 202.58,
+        "category": "Fuel",
+        "type": "debit",
+        "id": "2b6925fe-dba0-46de-a32e-5c67d725a1c9"
+      },
+      {
+        "date": "2026-04-11",
+        "description": "Bunnings Balcatta WA",
+        "amount": -46.72,
+        "balance": 155.86,
+        "category": "Shopping",
+        "type": "debit",
+        "id": "ca2ae258-4e82-465f-9766-cb57dc6e1a50"
+      },
+      {
+        "date": "2026-04-11",
+        "description": "Little Creatures Fremantle WA",
+        "amount": -38.1,
+        "balance": 117.76,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "e47c4fd4-c55d-4798-8fd7-1aa116c36e67"
+      },
+      {
+        "date": "2026-04-11",
+        "description": "Fremantle Markets WA",
+        "amount": -24,
+        "balance": 93.76,
+        "category": "Shopping",
+        "type": "debit",
+        "id": "d44a585e-5a71-4e52-9004-8551bfcb90e2"
+      },
+      {
+        "date": "2026-04-12",
+        "description": "Coles Raine Square Perth WA",
+        "amount": -68.05,
+        "balance": 25.71,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "1cd84b38-b431-46e2-add0-42024c7c517a"
+      },
+      {
+        "date": "2026-04-12",
+        "description": "Spotify P2b Sydney AU",
+        "amount": -13.99,
+        "balance": 11.72,
+        "category": "Entertainment",
+        "type": "debit",
+        "id": "6e5357ed-fb13-4fea-9f9b-f3a686350cd1"
+      },
+      {
+        "date": "2026-04-12",
+        "description": "Transfer from Maya Patel",
+        "amount": 120,
+        "balance": 131.72,
+        "category": "Transfer",
+        "type": "credit",
+        "id": "f0bb0a9b-ce5f-4edc-92ff-00f343b902f5"
+      },
+      {
+        "date": "2026-04-13",
+        "description": "Hoyts Carousel Cannington WA",
+        "amount": -29.5,
+        "balance": 102.22,
+        "category": "Entertainment",
+        "type": "debit",
+        "id": "eb95059a-dce7-4db5-97e5-80e89ad4f7b9"
+      },
+      {
+        "date": "2026-04-13",
+        "description": "Uber Eats Pending AU",
+        "amount": -34.67,
+        "balance": 67.55,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "5ff96d04-1487-46ed-b4ca-bee1680e6661"
+      },
+      {
+        "date": "2026-04-14",
+        "description": "Telstra Mobile Sydney AU",
+        "amount": -59,
+        "balance": 8.55,
+        "category": "Utilities",
+        "type": "debit",
+        "id": "c2cfe4ac-1dc0-489e-af9e-713cd84c0e3d"
+      },
+      {
+        "date": "2026-04-14",
+        "description": "Woolworths Leederville WA",
+        "amount": -42.61,
+        "balance": -34.06,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "8215934b-c868-4fb3-9cb4-5f7bc3922f5e"
+      },
+      {
+        "date": "2026-04-14",
+        "description": "Chemist Warehouse Perth City WA",
+        "amount": -12.99,
+        "balance": -47.05,
+        "category": "Pharmacy",
+        "type": "debit",
+        "id": "8129b53e-4709-43eb-a914-2c0d87e9076d"
+      },
+      {
+        "date": "2026-04-15",
+        "description": "RAC Insurance Perth WA",
+        "amount": -92.38,
+        "balance": -139.43,
+        "category": "Insurance",
+        "type": "debit",
+        "id": "734ba41c-e3c3-49d4-a019-aa0cb3d3ea3c"
+      },
+      {
+        "date": "2026-04-15",
+        "description": "Boo Espresso Perth WA",
+        "amount": -6.2,
+        "balance": -145.63,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "c7a081fb-8e7c-4866-a715-e7a1bbb15b6b"
+      },
+      {
+        "date": "2026-04-15",
+        "description": "Transfer to Everyday Saver",
+        "amount": -350,
+        "balance": -495.63,
+        "category": "Transfer",
+        "type": "debit",
+        "id": "2635b9f5-27a9-4732-9871-45ca60513f21"
+      },
+      {
+        "date": "2026-04-16",
+        "description": "Direct Debit - Gym Membership",
+        "amount": -23.5,
+        "balance": -519.13,
+        "category": "Fitness",
+        "type": "debit",
+        "id": "75dbc4d9-9282-4906-84a2-bd9a3a4ab331"
+      },
+      {
+        "date": "2026-04-16",
+        "description": "Coles North Perth WA",
+        "amount": -57.73,
+        "balance": -576.86,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "3aab2ac3-be77-4e74-8f9f-253788b7aac1"
+      },
+      {
+        "date": "2026-04-16",
+        "description": "Payment from Hannah Cook",
+        "amount": 35,
+        "balance": -541.86,
+        "category": "Transfer",
+        "type": "credit",
+        "id": "fc1a6009-49c2-443b-8b64-9a2e843dd167"
+      },
+      {
+        "date": "2026-04-17",
+        "description": "Transperth SmartRider Autoload",
+        "amount": -30,
+        "balance": -571.86,
+        "category": "Transport",
+        "type": "debit",
+        "id": "7f9be2c1-f9ca-491a-ad81-04c46b3d48e8"
+      },
+      {
+        "date": "2026-04-17",
+        "description": "Ampol Foodary Northbridge WA",
+        "amount": -66.18,
+        "balance": -638.04,
+        "category": "Fuel",
+        "type": "debit",
+        "id": "b5bc410a-a170-4145-96e8-17e530d637a6"
+      },
+      {
+        "date": "2026-04-17",
+        "description": "PICA Bar Northbridge WA",
+        "amount": -28,
+        "balance": -666.04,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "17338489-6e5f-4ac1-b450-618e01eb7d26"
+      },
+      {
+        "date": "2026-04-18",
+        "description": "Rottnest Express Fremantle WA",
+        "amount": -86,
+        "balance": -752.04,
+        "category": "Travel",
+        "type": "debit",
+        "id": "1b528538-8cf8-4041-9f42-59cacbeac02a"
+      },
+      {
+        "date": "2026-04-18",
+        "description": "The Lane Cafe Rottnest WA",
+        "amount": -22.4,
+        "balance": -774.44,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "6758debf-1038-47ba-b617-7440aa721a8f"
+      },
+      {
+        "date": "2026-04-18",
+        "description": "IGA Rottnest Island WA",
+        "amount": -31.9,
+        "balance": -806.34,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "c41d8b22-347d-492b-ad13-2fff76e4bae7"
+      },
+      {
+        "date": "2026-04-19",
+        "description": "Woolworths Highgate WA",
+        "amount": -91.28,
+        "balance": -897.62,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "62d95afe-cd31-4650-b7b2-fee4b2095be9"
+      },
+      {
+        "date": "2026-04-19",
+        "description": "Kindle Store Sydney AU",
         "amount": -9.99,
-        "balance": 28.05,
+        "balance": -907.61,
+        "category": "Entertainment",
+        "type": "debit",
+        "id": "45379214-9404-4c06-a558-b9e7f04fbc5f"
+      },
+      {
+        "date": "2026-04-20",
+        "description": "Transfer from Everyday Saver",
+        "amount": 250,
+        "balance": -657.61,
+        "category": "Transfer",
+        "type": "credit",
+        "id": "9d31b82b-fefe-47fd-bc9c-3c743ef76f00"
+      },
+      {
+        "date": "2026-04-20",
+        "description": "City of Vincent Parking WA",
+        "amount": -5.2,
+        "balance": -662.81,
+        "category": "Transport",
+        "type": "debit",
+        "id": "12fae903-6e02-4c05-a35f-e8c662acc0bc"
+      },
+      {
+        "date": "2026-04-20",
+        "description": "Mondo Butchers Inglewood WA",
+        "amount": -33.45,
+        "balance": -696.26,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "309c879d-27c2-4a69-9505-13771363a94e"
+      },
+      {
+        "date": "2026-04-21",
+        "description": "Rideshare Trip Help.uber.com AU",
+        "amount": -17.88,
+        "balance": -714.14,
+        "category": "Transport",
+        "type": "debit",
+        "id": "962a4b9a-f51b-4743-af57-8a669863a3a5"
+      },
+      {
+        "date": "2026-04-21",
+        "description": "Coles Raine Square Perth WA",
+        "amount": -49.32,
+        "balance": -763.46,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "1f3180c7-e948-4853-92f1-da81db125eec"
+      },
+      {
+        "date": "2026-04-21",
+        "description": "Canva Pro Sydney AU",
+        "amount": -16.99,
+        "balance": -780.45,
         "category": "Subscription",
-        "type": "debit"
+        "type": "debit",
+        "id": "3538d838-474a-4204-845c-4264504f6a8e"
       },
       {
-        "id": "20260207-2",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 110,
-        "balance": 138.05,
-        "category": "Transfer",
-        "type": "credit"
+        "date": "2026-04-22",
+        "description": "Direct Debit - Private Health Extras",
+        "amount": -34.6,
+        "balance": -815.05,
+        "category": "Insurance",
+        "type": "debit",
+        "id": "917fcb18-4d2c-43c7-b2d3-eeb497172297"
       },
       {
-        "id": "20260207-3",
-        "date": "2026-02-07",
-        "description": "Atlas Fuel Wanneroo Wanneroo AU",
-        "amount": -109.81,
-        "balance": 28.24,
-        "category": "Fuel",
-        "type": "debit"
-      },
-      {
-        "id": "20260207-4",
-        "date": "2026-02-07",
-        "description": "Payment from Ajahna G Lillee",
-        "amount": 30,
-        "balance": 58.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260207-5",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 30,
-        "balance": 88.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260207-6",
-        "date": "2026-02-07",
-        "description": "Payment from Ajahna G Lillee",
-        "amount": 30,
-        "balance": 118.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260207-7",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 60,
-        "balance": 178.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260207-8",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 100,
-        "balance": 278.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260207-9",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 328.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260207-10",
-        "date": "2026-02-07",
-        "description": "Payment to 086-412 241337683 Kara St",
-        "amount": -165,
-        "balance": 163.24,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260208-1",
-        "date": "2026-02-08",
-        "description": "Microsoft*store Msbill.info AU",
-        "amount": -59.95,
-        "balance": 103.29,
-        "category": "Software/Subscription",
-        "type": "debit"
-      },
-      {
-        "id": "20260208-2",
-        "date": "2026-02-08",
-        "description": "Bws Liquor/whitfords Cty Hillarys AU",
-        "amount": -31,
-        "balance": 72.29,
-        "category": "Alcohol",
-        "type": "debit"
-      },
-      {
-        "id": "20260208-3",
-        "date": "2026-02-08",
-        "description": "Xing Da WA Pty Ltd Hillarys AU",
-        "amount": -8.06,
-        "balance": 64.23,
+        "date": "2026-04-22",
+        "description": "Duotone East Perth WA",
+        "amount": -7.8,
+        "balance": -822.85,
         "category": "Food & Dining",
-        "type": "debit"
+        "type": "debit",
+        "id": "e302e531-6e14-4742-9cd5-fa90ec849db7"
       },
       {
-        "id": "20260208-4",
-        "date": "2026-02-08",
-        "description": "Sp Doughstreet Balcatta AU",
-        "amount": -16.72,
-        "balance": 47.51,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260208-5",
-        "date": "2026-02-08",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 97.51,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260209-1",
-        "date": "2026-02-09",
-        "description": "Sq *Perth Festival Casa Mcanning Vale AU",
-        "amount": -4.5,
-        "balance": 93.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "20260209-2",
-        "date": "2026-02-09",
-        "description": "Sq *Perth Festival Menora AU",
-        "amount": -8,
-        "balance": 85.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "20260209-3",
-        "date": "2026-02-09",
-        "description": "Stan.com.AU\\",
-        "amount": -22,
-        "balance": 63.01,
-        "category": "Subscription",
-        "type": "debit"
-      },
-      {
-        "id": "20260210-1",
-        "date": "2026-02-10",
-        "description": "Aldi Stores Currambine AU",
-        "amount": -49.42,
-        "balance": 13.59,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "20260211-1",
-        "date": "2026-02-11",
-        "description": "Direct Credit CBA - Wemoney Salary",
-        "amount": 2314.61,
-        "balance": 2328.2,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "20260212-1",
-        "date": "2026-02-12",
-        "description": "Custom Offroad\\",
-        "amount": -462,
-        "balance": 1866.2,
-        "category": "Automotive",
-        "type": "debit"
-      },
-      {
-        "id": "20260212-2",
-        "date": "2026-02-12",
-        "description": "Transfer",
-        "amount": -1000,
-        "balance": 866.2,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260212-3",
-        "date": "2026-02-12",
-        "description": "Chemist Warehouse Perth City Centre Perth AU",
-        "amount": -32.12,
-        "balance": 834.08,
-        "category": "Health",
-        "type": "debit"
-      },
-      {
-        "id": "20260213-1",
-        "date": "2026-02-13",
-        "description": "Transfer",
+        "date": "2026-04-22",
+        "description": "Transfer to Tax Buffer",
         "amount": -150,
-        "balance": 684.08,
+        "balance": -972.85,
         "category": "Transfer",
-        "type": "debit"
+        "type": "debit",
+        "id": "210b40b4-1205-4d21-8658-8678390076c0"
       },
       {
-        "id": "20260213-2",
-        "date": "2026-02-13",
-        "description": "Paddy Pallin \\Perth AU",
-        "amount": -52.85,
-        "balance": 631.23,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "20260214-1",
-        "date": "2026-02-14",
-        "description": "Ryu Bento Currambine AU",
-        "amount": -36.5,
-        "balance": 594.73,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260214-2",
-        "date": "2026-02-14",
-        "description": "Sp Floraly Alexandria AU",
-        "amount": -128.95,
-        "balance": 465.78,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "20260215-1",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -98.68,
-        "balance": 367.1,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260215-2",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -24.29,
-        "balance": 342.81,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260215-3",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -23.28,
-        "balance": 319.53,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260215-4",
-        "date": "2026-02-15",
-        "description": "Grilld Currambine Carrumbine AU",
-        "amount": -47.3,
-        "balance": 272.23,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260216-1",
-        "date": "2026-02-16",
-        "description": "Sp Milligram Melbourne AU",
-        "amount": -43.99,
-        "balance": 228.24,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "20260216-2",
-        "date": "2026-02-16",
-        "description": "Jindalee Beach Shack Jindalee AU",
-        "amount": -6.57,
-        "balance": 221.67,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260217-1",
-        "date": "2026-02-17",
-        "description": "Didimobility Sydney AU",
-        "amount": -17.18,
-        "balance": 204.49,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "20260217-2",
-        "date": "2026-02-17",
-        "description": "Cpp Elder Street Perth AU",
-        "amount": -5.05,
-        "balance": 199.44,
-        "category": "Parking",
-        "type": "debit"
-      },
-      {
-        "id": "20260217-3",
-        "date": "2026-02-17",
-        "description": "Transfer",
-        "amount": 1400,
-        "balance": 1599.44,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260217-4",
-        "date": "2026-02-17",
-        "description": "West Australian Marathon Club Inc\\burswo",
-        "amount": -76.62,
-        "balance": 1522.82,
-        "category": "Sports/Fitness",
-        "type": "debit"
-      },
-      {
-        "id": "20260218-1",
-        "date": "2026-02-18",
-        "description": "Refund From Sp Floraly Alexandria AU",
-        "amount": 128.95,
-        "balance": 1651.77,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "20260218-2",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -9.99,
-        "balance": 1641.78,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "20260218-3",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -11.1,
-        "balance": 1630.68,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "20260218-4",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -0.61,
-        "balance": 1630.07,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "20260218-5",
-        "date": "2026-02-18",
-        "description": "Direct Credit Mcnaughtans Pty - Mcnaughtans Refund",
-        "amount": 179.5,
-        "balance": 1809.57,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "20260218-6",
-        "date": "2026-02-18",
-        "description": "Transfer",
-        "amount": -280.33,
-        "balance": 1529.24,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260219-1",
-        "date": "2026-02-19",
-        "description": "Serptag London Gb",
-        "amount": -9.64,
-        "balance": 1519.6,
-        "category": "Software/Subscription",
-        "type": "debit"
-      },
-      {
-        "id": "20260219-2",
-        "date": "2026-02-19",
-        "description": "Transfer",
-        "amount": -118.42,
-        "balance": 1401.18,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260219-3",
-        "date": "2026-02-19",
-        "description": "Transfer",
-        "amount": 300,
-        "balance": 1701.18,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260220-1",
-        "date": "2026-02-20",
-        "description": "Al Wanneroo Pty Ltd Wangara AU",
-        "amount": -1302.6,
-        "balance": 398.58,
-        "category": "Automotive",
-        "type": "debit"
-      },
-      {
-        "id": "20260220-2",
-        "date": "2026-02-20",
-        "description": "Sushia (Cloisters) Perth AU",
-        "amount": -9.08,
-        "balance": 389.5,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260220-3",
-        "date": "2026-02-20",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -17,
-        "balance": 372.5,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260220-4",
-        "date": "2026-02-20",
-        "description": "Coles 0481 Perth AU",
-        "amount": -9,
-        "balance": 363.5,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "20260220-5",
-        "date": "2026-02-20",
-        "description": "Transfer",
-        "amount": 20,
-        "balance": 383.5,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260221-1",
-        "date": "2026-02-21",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 370,
-        "type": "debit"
-      },
-      {
-        "id": "20260221-2",
-        "date": "2026-02-21",
-        "description": "Dan Murphy S/401 Scarboroinnaloo AU",
-        "amount": -26.49,
-        "balance": 343.51,
-        "category": "Alcohol",
-        "type": "debit"
-      },
-      {
-        "id": "20260221-3",
-        "date": "2026-02-21",
-        "description": "The Athletes Foot Joondalup Dc AU",
-        "amount": -269.99,
-        "balance": 73.52,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "20260221-4",
-        "date": "2026-02-21",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 123.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260222-1",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 173.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260222-2",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 20,
-        "balance": 193.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260222-3",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 243.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260223-1",
-        "date": "2026-02-23",
-        "description": "Sq *Bennies By The Beach Marmion AU",
-        "amount": -8.64,
-        "balance": 234.88,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260223-2",
-        "date": "2026-02-23",
-        "description": "Uniqlo Joondalup Joondalup AU",
-        "amount": -59.8,
-        "balance": 175.08,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "20260224-1",
-        "date": "2026-02-24",
-        "description": "Refund From The Athletes Foot Joondalup Dc AU",
-        "amount": 269.99,
-        "balance": 445.07,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "20260224-2",
-        "date": "2026-02-24",
-        "description": "McDonald's Innaloo Innaloo AU",
-        "amount": -15.2,
-        "balance": 429.87,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260224-3",
-        "date": "2026-02-24",
-        "description": "Aldi Stores Joondalup AU",
-        "amount": -40.87,
-        "balance": 389,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "20260224-4",
-        "date": "2026-02-24",
-        "description": "Burk Alkimos Alkimos AU",
-        "amount": -104.87,
-        "balance": 284.13,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260225-1",
-        "date": "2026-02-25",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -17,
-        "balance": 267.13,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260225-2",
-        "date": "2026-02-25",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 253.63,
-        "type": "debit"
-      },
-      {
-        "id": "20260225-3",
-        "date": "2026-02-25",
-        "description": "Hy Carillon Perth AU",
-        "amount": -216.99,
-        "balance": 36.64,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "20260225-4",
-        "date": "2026-02-25",
-        "description": "Direct Credit CBA - Wemoney Salary",
-        "amount": 2314.62,
-        "balance": 2351.26,
+        "date": "2026-04-23",
+        "description": "Direct Credit CBA - WeMoney Salary",
+        "amount": 2760.46,
+        "balance": 1787.61,
         "category": "Income",
-        "type": "credit"
+        "type": "credit",
+        "id": "c3c02ccd-846f-4f4a-bc73-055037c2f3c2"
       },
       {
-        "id": "20260225-5",
-        "date": "2026-02-25",
-        "description": "Payment to 013-943 612169222 Airwall",
+        "date": "2026-04-23",
+        "description": "Transfer to Everyday Saver",
         "amount": -1000,
-        "balance": 1351.26,
+        "balance": 787.61,
         "category": "Transfer",
-        "type": "debit"
+        "type": "debit",
+        "id": "e6711f83-1ae1-4995-a031-73bbbad0d293"
       },
       {
-        "id": "20260225-6",
-        "date": "2026-02-25",
-        "description": "Payment to 013-943 612169222 Airwall",
-        "amount": -851.26,
-        "balance": 500,
-        "category": "Transfer",
-        "type": "debit"
+        "date": "2026-04-23",
+        "description": "Rent adjustment - Swan River Rentals",
+        "amount": -120,
+        "balance": 667.61,
+        "category": "Rent",
+        "type": "debit",
+        "id": "367007c4-28fc-4bb1-ac84-70fed4a09693"
       },
       {
-        "id": "20260226-1",
-        "date": "2026-02-26",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -24.09,
-        "balance": 475.91,
+        "date": "2026-04-23",
+        "description": "Transperth SmartRider Autoload",
+        "amount": -30,
+        "balance": 637.61,
+        "category": "Transport",
+        "type": "debit",
+        "id": "429809b8-c705-4fd4-b102-c691baee2894"
+      },
+      {
+        "date": "2026-04-24",
+        "description": "Woolworths Inglewood WA",
+        "amount": -76.58,
+        "balance": 561.03,
+        "category": "Groceries",
+        "type": "debit",
+        "id": "c454d42b-2b79-4a28-87cb-2be9b2984522"
+      },
+      {
+        "date": "2026-04-24",
+        "description": "Pearth Organic Kitchen Perth WA",
+        "amount": -18.9,
+        "balance": 542.13,
         "category": "Food & Dining",
-        "type": "debit"
+        "type": "debit",
+        "id": "e316602a-f5bd-4680-a7dd-3179f11f7ee4"
       },
       {
-        "id": "20260226-2",
-        "date": "2026-02-26",
-        "description": "Payment from GEORGE DOBSON-BROWN",
-        "amount": 500,
-        "balance": 975.91,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "20260227-1",
-        "date": "2026-02-27",
-        "description": "Payment to A G Lillee",
-        "amount": -210,
-        "balance": 765.91,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260228-1",
-        "date": "2026-02-28",
-        "description": "Payment to 014-111 158266255 DOBSON-",
-        "amount": -35,
-        "balance": 730.91,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "20260228-2",
-        "date": "2026-02-28",
-        "description": "Amazon Marketplace AU Sydney AU",
-        "amount": -128.7,
-        "balance": 602.21,
+        "date": "2026-04-24",
+        "description": "Liquorland Mt Lawley WA",
+        "amount": -29,
+        "balance": 513.13,
         "category": "Shopping",
-        "type": "debit"
+        "type": "debit",
+        "id": "ac083865-0f90-4e6e-8636-13e5c600b737"
       },
       {
-        "id": "20260228-3",
-        "date": "2026-02-28",
-        "description": "Beaumaris IGA Ocean Reef AU",
-        "amount": -15.45,
-        "balance": 586.76,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "20260228-4",
-        "date": "2026-02-28",
-        "description": "Transperth Parking Perth AU",
-        "amount": -2,
-        "balance": 584.76,
-        "category": "Parking",
-        "type": "debit"
-      },
-      {
-        "id": "20260228-5",
-        "date": "2026-02-28",
-        "description": "The Generous Squire Perth AU",
-        "amount": -10.12,
-        "balance": 574.64,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "20260228-6",
-        "date": "2026-02-28",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -20.55,
-        "balance": 554.09,
-        "category": "Food & Dining",
-        "type": "debit"
-      }
-    ],
-    "totalCredits": 10594.1,
-    "totalDebits": 10195.92,
-    "sourceFile": "SpendAccount-3579_2026-02.pdf",
-    "createdAt": "2026-03-19T13:14:37.142Z",
-    "updatedAt": "2026-03-19T13:14:37.142Z"
-  },
-  {
-    "id": "c2038551-8491-4155-9f21-b450b1599b4a",
-    "bank": {
-      "name": "ubank",
-      "accountName": "Oscar George Dobson-Brown",
-      "accountNumber": "1046 3579"
-    },
-    "period": {
-      "startDate": "2026-02-01",
-      "endDate": "2026-02-28"
-    },
-    "openingBalance": 155.91,
-    "closingBalance": 554.09,
-    "transactions": [
-      {
-        "id": "txn_001",
-        "date": "2026-02-01",
-        "description": "Sq *Roasting Warehouse Sosouth Fremantau",
-        "amount": -66.08,
-        "balance": 89.83,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_002",
-        "date": "2026-02-01",
-        "description": "Transfer",
-        "amount": -50,
-        "balance": 39.83,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_003",
-        "date": "2026-02-02",
-        "description": "Grilld Pty Ltd Richmond AU",
-        "amount": -35.4,
-        "balance": 4.43,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_004",
-        "date": "2026-02-02",
-        "description": "Direct Credit Stakeshop Pty Lt - Withdrawal From St",
-        "amount": 2216,
-        "balance": 2220.43,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn_005",
-        "date": "2026-02-02",
-        "description": "Transfer",
-        "amount": -2120.43,
-        "balance": 100,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_006",
-        "date": "2026-02-03",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 150,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_007",
-        "date": "2026-02-03",
-        "description": "Transfer",
-        "amount": 70.43,
-        "balance": 220.43,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_008",
-        "date": "2026-02-03",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 206.93,
-        "category": "Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn_009",
-        "date": "2026-02-03",
-        "description": "The Herdsman Market\\churchlands AU",
-        "amount": -35.47,
-        "balance": 171.46,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn_010",
-        "date": "2026-02-03",
-        "description": "The Good Grocer Boul City Beach AU",
+        "date": "2026-04-25",
+        "description": "ANZAC Day Appeal Perth WA",
         "amount": -20,
-        "balance": 151.46,
+        "balance": 493.13,
+        "category": "Charity",
+        "type": "debit",
+        "id": "7e995e67-3a97-4921-adb6-3a016fc1cf19"
+      },
+      {
+        "date": "2026-04-25",
+        "description": "Dome Cafe East Perth WA",
+        "amount": -16.4,
+        "balance": 476.73,
+        "category": "Food & Dining",
+        "type": "debit",
+        "id": "29ddaf3d-c816-48ea-83ce-c9483ad8357a"
+      },
+      {
+        "date": "2026-04-25",
+        "description": "Uber Trip Help.uber.com AU",
+        "amount": -24.55,
+        "balance": 452.18,
+        "category": "Transport",
+        "type": "debit",
+        "id": "48eb2e72-fa5d-4e18-8ca3-8b3f8ceb99c4"
+      },
+      {
+        "date": "2026-04-26",
+        "description": "Coles North Perth WA",
+        "amount": -62.47,
+        "balance": 389.71,
         "category": "Groceries",
-        "type": "debit"
+        "type": "debit",
+        "id": "661d8cd6-907f-49e2-9ac6-0b7e3e3c0bcd"
       },
       {
-        "id": "txn_011",
-        "date": "2026-02-04",
-        "description": "Factory Ai Factory.ai Us",
-        "amount": -28.83,
-        "balance": 122.63,
-        "category": "Software & Subscriptions",
-        "type": "debit"
-      },
-      {
-        "id": "txn_012",
-        "date": "2026-02-04",
-        "description": "Transfer",
-        "amount": 10,
-        "balance": 132.63,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_013",
-        "date": "2026-02-04",
-        "description": "Coles 0481 Perth AU",
-        "amount": -10.15,
-        "balance": 122.48,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn_014",
-        "date": "2026-02-05",
-        "description": "Perth Festival Crawley AU",
-        "amount": -118,
-        "balance": 4.48,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn_015",
-        "date": "2026-02-05",
-        "description": "Transfer",
-        "amount": 90,
-        "balance": 94.48,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_016",
-        "date": "2026-02-05",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 80.98,
-        "category": "Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn_017",
-        "date": "2026-02-05",
-        "description": "Transfer",
-        "amount": 100,
-        "balance": 180.98,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_018",
-        "date": "2026-02-05",
-        "description": "The Flower Market WA Churchlands AU",
-        "amount": -82.95,
-        "balance": 98.03,
+        "date": "2026-04-26",
+        "description": "Bunnings Innaloo WA",
+        "amount": -38.14,
+        "balance": 351.57,
         "category": "Shopping",
-        "type": "debit"
+        "type": "debit",
+        "id": "4af001de-8df7-447b-9114-92aa3f216c9c"
       },
       {
-        "id": "txn_019",
-        "date": "2026-02-05",
-        "description": "North Beach Pharmacy North Beach WA AU",
-        "amount": -59.99,
-        "balance": 38.04,
-        "category": "Health & Pharmacy",
-        "type": "debit"
+        "date": "2026-04-27",
+        "description": "DFO Perth Airport WA",
+        "amount": -89.97,
+        "balance": 261.6,
+        "category": "Shopping",
+        "type": "debit",
+        "id": "ad5e12e2-8c50-4d2b-94c2-039e71c542f8"
       },
       {
-        "id": "txn_020",
-        "date": "2026-02-07",
-        "description": "Amznprimea* Amznprimea Sydney South AU",
-        "amount": -9.99,
-        "balance": 28.05,
-        "category": "Software & Subscriptions",
-        "type": "debit"
-      },
-      {
-        "id": "txn_021",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 110,
-        "balance": 138.05,
+        "date": "2026-04-27",
+        "description": "Transfer from Alex Ng",
+        "amount": 55,
+        "balance": 316.6,
         "category": "Transfer",
-        "type": "credit"
+        "type": "credit",
+        "id": "22348dbf-d4b5-467d-9f67-aa93fbd5126c"
       },
       {
-        "id": "txn_022",
-        "date": "2026-02-07",
-        "description": "Atlas Fuel Wanneroo Wanneroo AU",
-        "amount": -109.81,
-        "balance": 28.24,
-        "category": "Fuel",
-        "type": "debit"
+        "date": "2026-04-27",
+        "description": "NIB Stadium Parking WA",
+        "amount": -12,
+        "balance": 304.6,
+        "category": "Transport",
+        "type": "debit",
+        "id": "3fc4b9d3-e23f-49f9-9cf9-8d66ecc47d24"
       },
       {
-        "id": "txn_023",
-        "date": "2026-02-07",
-        "description": "Payment from Ajahna G Lillee",
-        "amount": 30,
-        "balance": 58.24,
-        "category": "Income",
-        "type": "credit"
+        "date": "2026-04-28",
+        "description": "Amazon Marketplace Sydney AU",
+        "amount": -42.8,
+        "balance": 261.8,
+        "category": "Shopping",
+        "type": "debit",
+        "id": "52f06289-453d-4207-8cbb-d576bfb17bba"
       },
       {
-        "id": "txn_024",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 30,
-        "balance": 88.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_025",
-        "date": "2026-02-07",
-        "description": "Payment from Ajahna G Lillee",
-        "amount": 30,
-        "balance": 118.24,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn_026",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 60,
-        "balance": 178.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_027",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 100,
-        "balance": 278.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_028",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 328.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_029",
-        "date": "2026-02-07",
-        "description": "Payment to 086-412 241337683 Kara St",
-        "amount": -165,
-        "balance": 163.24,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_030",
-        "date": "2026-02-08",
-        "description": "Microsoft*store Msbill.info AU",
-        "amount": -59.95,
-        "balance": 103.29,
-        "category": "Software & Subscriptions",
-        "type": "debit"
-      },
-      {
-        "id": "txn_031",
-        "date": "2026-02-08",
-        "description": "Bws Liquor/whitfords Cty Hillarys AU",
-        "amount": -31,
-        "balance": 72.29,
-        "category": "Alcohol & Liquor",
-        "type": "debit"
-      },
-      {
-        "id": "txn_032",
-        "date": "2026-02-08",
-        "description": "Xing Da WA Pty Ltd Hillarys AU",
-        "amount": -8.06,
-        "balance": 64.23,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_033",
-        "date": "2026-02-08",
-        "description": "Sp Doughstreet Balcatta AU",
-        "amount": -16.72,
-        "balance": 47.51,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_034",
-        "date": "2026-02-08",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 97.51,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_035",
-        "date": "2026-02-09",
-        "description": "Sq *Perth Festival Casa Mcanning Vale AU",
-        "amount": -4.5,
-        "balance": 93.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn_036",
-        "date": "2026-02-09",
-        "description": "Sq *Perth Festival Menora AU",
-        "amount": -8,
-        "balance": 85.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn_037",
-        "date": "2026-02-09",
-        "description": "Stan.com.AU\\",
-        "amount": -22,
-        "balance": 63.01,
-        "category": "Software & Subscriptions",
-        "type": "debit"
-      },
-      {
-        "id": "txn_038",
-        "date": "2026-02-10",
-        "description": "Aldi Stores Currambine AU",
-        "amount": -49.42,
-        "balance": 13.59,
+        "date": "2026-04-28",
+        "description": "Woolworths Highgate WA",
+        "amount": -47.21,
+        "balance": 214.59,
         "category": "Groceries",
-        "type": "debit"
+        "type": "debit",
+        "id": "b3365723-128f-4f86-a8f5-f7b733da7006"
       },
       {
-        "id": "txn_039",
-        "date": "2026-02-11",
-        "description": "Direct Credit CBA - Wemoney Salary",
-        "amount": 2314.61,
-        "balance": 2328.2,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn_040",
-        "date": "2026-02-12",
-        "description": "Custom Offroad\\",
-        "amount": -462,
-        "balance": 1866.2,
+        "date": "2026-04-28",
+        "description": "Repco Osborne Park WA",
+        "amount": -24.99,
+        "balance": 189.6,
         "category": "Automotive",
-        "type": "debit"
+        "type": "debit",
+        "id": "c04b3816-4db5-451a-91cb-42aba9edc5d1"
       },
       {
-        "id": "txn_041",
-        "date": "2026-02-12",
-        "description": "Transfer",
-        "amount": -1000,
-        "balance": 866.2,
+        "date": "2026-04-29",
+        "description": "Chemist Warehouse Perth City WA",
+        "amount": -9.49,
+        "balance": 180.11,
+        "category": "Pharmacy",
+        "type": "debit",
+        "id": "76a88eec-cc3e-4674-8739-a9dbf276869b"
+      },
+      {
+        "date": "2026-04-29",
+        "description": "Payment from Zoe Martin",
+        "amount": 28,
+        "balance": 208.11,
         "category": "Transfer",
-        "type": "debit"
+        "type": "credit",
+        "id": "a0f4135f-f0ce-4d13-bcfa-0340ff251d92"
       },
       {
-        "id": "txn_042",
-        "date": "2026-02-12",
-        "description": "Chemist Warehouse Perth City Centre Perth AU",
-        "amount": -32.12,
-        "balance": 834.08,
-        "category": "Health & Pharmacy",
-        "type": "debit"
-      },
-      {
-        "id": "txn_043",
-        "date": "2026-02-13",
-        "description": "Transfer",
-        "amount": -150,
-        "balance": 684.08,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_044",
-        "date": "2026-02-13",
-        "description": "Paddy Pallin \\Perth AU",
-        "amount": -52.85,
-        "balance": 631.23,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn_045",
-        "date": "2026-02-14",
-        "description": "Ryu Bento Currambine AU",
-        "amount": -36.5,
-        "balance": 594.73,
+        "date": "2026-04-29",
+        "description": "La Cholita Northbridge WA",
+        "amount": -52.5,
+        "balance": 155.61,
         "category": "Food & Dining",
-        "type": "debit"
+        "type": "debit",
+        "id": "88ef79c4-e0f2-408e-9f6e-2057c7c5c101"
       },
       {
-        "id": "txn_046",
-        "date": "2026-02-14",
-        "description": "Sp Floraly Alexandria AU",
-        "amount": -128.95,
-        "balance": 465.78,
-        "category": "Shopping",
-        "type": "debit"
+        "date": "2026-04-30",
+        "description": "Direct Debit - Contents Insurance",
+        "amount": -31.8,
+        "balance": 123.81,
+        "category": "Insurance",
+        "type": "debit",
+        "id": "3c1c7861-1f44-45a7-a5df-9df08a1b8cea"
       },
       {
-        "id": "txn_047",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -98.68,
-        "balance": 367.1,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_048",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -24.29,
-        "balance": 342.81,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_049",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -23.28,
-        "balance": 319.53,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_050",
-        "date": "2026-02-15",
-        "description": "Grilld Currambine Carrumbine AU",
-        "amount": -47.3,
-        "balance": 272.23,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_051",
-        "date": "2026-02-16",
-        "description": "Sp Milligram Melbourne AU",
-        "amount": -43.99,
-        "balance": 228.24,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn_052",
-        "date": "2026-02-16",
-        "description": "Jindalee Beach Shack Jindalee AU",
-        "amount": -6.57,
-        "balance": 221.67,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_053",
-        "date": "2026-02-17",
-        "description": "Didimobility Sydney AU",
-        "amount": -17.18,
-        "balance": 204.49,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn_054",
-        "date": "2026-02-17",
-        "description": "Cpp Elder Street Perth AU",
-        "amount": -5.05,
-        "balance": 199.44,
-        "category": "Parking",
-        "type": "debit"
-      },
-      {
-        "id": "txn_055",
-        "date": "2026-02-17",
-        "description": "Transfer",
-        "amount": 1400,
-        "balance": 1599.44,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_056",
-        "date": "2026-02-17",
-        "description": "West Australian Marathon Club Inc\\burswo",
-        "amount": -76.62,
-        "balance": 1522.82,
-        "category": "Sports & Fitness",
-        "type": "debit"
-      },
-      {
-        "id": "txn_057",
-        "date": "2026-02-18",
-        "description": "Refund From Sp Floraly Alexandria AU",
-        "amount": 128.95,
-        "balance": 1651.77,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "txn_058",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -9.99,
-        "balance": 1641.78,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn_059",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -11.1,
-        "balance": 1630.68,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn_060",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -0.61,
-        "balance": 1630.07,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn_061",
-        "date": "2026-02-18",
-        "description": "Direct Credit Mcnaughtans Pty - Mcnaughtans Refund",
-        "amount": 179.5,
-        "balance": 1809.57,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "txn_062",
-        "date": "2026-02-18",
-        "description": "Transfer",
-        "amount": -280.33,
-        "balance": 1529.24,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_063",
-        "date": "2026-02-19",
-        "description": "Serptag London Gb",
-        "amount": -9.64,
-        "balance": 1519.6,
-        "category": "Software & Subscriptions",
-        "type": "debit"
-      },
-      {
-        "id": "txn_064",
-        "date": "2026-02-19",
-        "description": "Transfer",
-        "amount": -118.42,
-        "balance": 1401.18,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_065",
-        "date": "2026-02-19",
-        "description": "Transfer",
-        "amount": 300,
-        "balance": 1701.18,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_066",
-        "date": "2026-02-20",
-        "description": "Al Wanneroo Pty Ltd Wangara AU",
-        "amount": -1302.6,
-        "balance": 398.58,
-        "category": "Automotive",
-        "type": "debit"
-      },
-      {
-        "id": "txn_067",
-        "date": "2026-02-20",
-        "description": "Sushia (Cloisters) Perth AU",
-        "amount": -9.08,
-        "balance": 389.5,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_068",
-        "date": "2026-02-20",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -17,
-        "balance": 372.5,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_069",
-        "date": "2026-02-20",
-        "description": "Coles 0481 Perth AU",
-        "amount": -9,
-        "balance": 363.5,
+        "date": "2026-04-30",
+        "description": "Coles Raine Square Perth WA",
+        "amount": -55.73,
+        "balance": 68.08,
         "category": "Groceries",
-        "type": "debit"
+        "type": "debit",
+        "id": "07b91222-3fb0-473a-80c1-f4aea9ab1077"
       },
       {
-        "id": "txn_070",
-        "date": "2026-02-20",
-        "description": "Transfer",
-        "amount": 20,
-        "balance": 383.5,
+        "date": "2026-04-30",
+        "description": "Transfer to Everyday Saver",
+        "amount": -300,
+        "balance": -231.92,
         "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_071",
-        "date": "2026-02-21",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 370,
-        "category": "Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn_072",
-        "date": "2026-02-21",
-        "description": "Dan Murphy S/401 Scarboroinnaloo AU",
-        "amount": -26.49,
-        "balance": 343.51,
-        "category": "Alcohol & Liquor",
-        "type": "debit"
-      },
-      {
-        "id": "txn_073",
-        "date": "2026-02-21",
-        "description": "The Athletes Foot Joondalup Dc AU",
-        "amount": -269.99,
-        "balance": 73.52,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn_074",
-        "date": "2026-02-21",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 123.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_075",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 173.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_076",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 20,
-        "balance": 193.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_077",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 243.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn_078",
-        "date": "2026-02-23",
-        "description": "Sq *Bennies By The Beach Marmion AU",
-        "amount": -8.64,
-        "balance": 234.88,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_079",
-        "date": "2026-02-23",
-        "description": "Uniqlo Joondalup Joondalup AU",
-        "amount": -59.8,
-        "balance": 175.08,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn_080",
-        "date": "2026-02-24",
-        "description": "Refund From The Athletes Foot Joondalup Dc AU",
-        "amount": 269.99,
-        "balance": 445.07,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "txn_081",
-        "date": "2026-02-24",
-        "description": "McDonald's Innaloo Innaloo AU",
-        "amount": -15.2,
-        "balance": 429.87,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_082",
-        "date": "2026-02-24",
-        "description": "Aldi Stores Joondalup AU",
-        "amount": -40.87,
-        "balance": 389,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn_083",
-        "date": "2026-02-24",
-        "description": "Burk Alkimos Alkimos AU",
-        "amount": -104.87,
-        "balance": 284.13,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_084",
-        "date": "2026-02-25",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -17,
-        "balance": 267.13,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_085",
-        "date": "2026-02-25",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 253.63,
-        "category": "Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn_086",
-        "date": "2026-02-25",
-        "description": "Hy Carillon Perth AU",
-        "amount": -216.99,
-        "balance": 36.64,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn_087",
-        "date": "2026-02-25",
-        "description": "Direct Credit CBA - Wemoney Salary",
-        "amount": 2314.62,
-        "balance": 2351.26,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn_088",
-        "date": "2026-02-25",
-        "description": "Payment to 013-943 612169222 Airwall",
-        "amount": -1000,
-        "balance": 1351.26,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_089",
-        "date": "2026-02-25",
-        "description": "Payment to 013-943 612169222 Airwall",
-        "amount": -851.26,
-        "balance": 500,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_090",
-        "date": "2026-02-26",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -24.09,
-        "balance": 475.91,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_091",
-        "date": "2026-02-26",
-        "description": "Payment from GEORGE DOBSON-BROWN",
-        "amount": 500,
-        "balance": 975.91,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn_092",
-        "date": "2026-02-27",
-        "description": "Payment to A G Lillee",
-        "amount": -210,
-        "balance": 765.91,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_093",
-        "date": "2026-02-28",
-        "description": "Payment to 014-111 158266255 DOBSON-",
-        "amount": -35,
-        "balance": 730.91,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn_094",
-        "date": "2026-02-28",
-        "description": "Amazon Marketplace AU Sydney AU",
-        "amount": -128.7,
-        "balance": 602.21,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn_095",
-        "date": "2026-02-28",
-        "description": "Beaumaris IGA Ocean Reef AU",
-        "amount": -15.45,
-        "balance": 586.76,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn_096",
-        "date": "2026-02-28",
-        "description": "Transperth Parking Perth AU",
-        "amount": -2,
-        "balance": 584.76,
-        "category": "Parking",
-        "type": "debit"
-      },
-      {
-        "id": "txn_097",
-        "date": "2026-02-28",
-        "description": "The Generous Squire Perth AU",
-        "amount": -10.12,
-        "balance": 574.64,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn_098",
-        "date": "2026-02-28",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -20.55,
-        "balance": 554.09,
-        "category": "Food & Dining",
-        "type": "debit"
+        "type": "debit",
+        "id": "87213113-ead6-4a98-af63-88394fe9c7fc"
       }
     ],
-    "totalCredits": 10594.1,
-    "totalDebits": 10195.92,
-    "sourceFile": "SpendAccount-3579_2026-02.pdf",
-    "createdAt": "2026-03-19T13:52:11.356Z",
-    "updatedAt": "2026-03-19T13:52:11.356Z"
-  },
-  {
-    "id": "1bf9d706-d50f-44f1-9edc-eaa457bd0865",
-    "bank": {
-      "name": "ubank",
-      "accountName": "Oscar George Dobson-Brown",
-      "accountNumber": "1046 3579"
-    },
-    "period": {
-      "startDate": "2026-02-01",
-      "endDate": "2026-02-28"
-    },
-    "openingBalance": 155.91,
-    "closingBalance": 554.09,
-    "transactions": [
-      {
-        "id": "txn-001",
-        "date": "2026-02-01",
-        "description": "Sq *Roasting Warehouse Sosouth Fremantau",
-        "amount": -66.08,
-        "balance": 89.83,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-002",
-        "date": "2026-02-01",
-        "description": "Transfer",
-        "amount": -50,
-        "balance": 39.83,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-003",
-        "date": "2026-02-02",
-        "description": "Grilld Pty Ltd Richmond AU",
-        "amount": -35.4,
-        "balance": 4.43,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-004",
-        "date": "2026-02-02",
-        "description": "Direct Credit Stakeshop Pty Lt - Withdrawal From St",
-        "amount": 2216,
-        "balance": 2220.43,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn-005",
-        "date": "2026-02-02",
-        "description": "Transfer",
-        "amount": -2120.43,
-        "balance": 100,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-006",
-        "date": "2026-02-03",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 150,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-007",
-        "date": "2026-02-03",
-        "description": "Transfer",
-        "amount": 70.43,
-        "balance": 220.43,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-008",
-        "date": "2026-02-03",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 206.93,
-        "category": "Business Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-009",
-        "date": "2026-02-03",
-        "description": "The Herdsman Market\\churchlands AU",
-        "amount": -35.47,
-        "balance": 171.46,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-010",
-        "date": "2026-02-03",
-        "description": "The Good Grocer Boul City Beach AU",
-        "amount": -20,
-        "balance": 151.46,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-011",
-        "date": "2026-02-04",
-        "description": "Factory Ai Factory.ai Us",
-        "amount": -28.83,
-        "balance": 122.63,
-        "category": "Software & Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-012",
-        "date": "2026-02-04",
-        "description": "Transfer",
-        "amount": 10,
-        "balance": 132.63,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-013",
-        "date": "2026-02-04",
-        "description": "Coles 0481 Perth AU",
-        "amount": -10.15,
-        "balance": 122.48,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-014",
-        "date": "2026-02-05",
-        "description": "Perth Festival Crawley AU",
-        "amount": -118,
-        "balance": 4.48,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn-015",
-        "date": "2026-02-05",
-        "description": "Transfer",
-        "amount": 90,
-        "balance": 94.48,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-016",
-        "date": "2026-02-05",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 80.98,
-        "category": "Business Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-017",
-        "date": "2026-02-05",
-        "description": "Transfer",
-        "amount": 100,
-        "balance": 180.98,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-018",
-        "date": "2026-02-05",
-        "description": "The Flower Market WA Churchlands AU",
-        "amount": -82.95,
-        "balance": 98.03,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-019",
-        "date": "2026-02-05",
-        "description": "North Beach Pharmacy North Beach WA AU",
-        "amount": -59.99,
-        "balance": 38.04,
-        "category": "Health & Pharmacy",
-        "type": "debit"
-      },
-      {
-        "id": "txn-020",
-        "date": "2026-02-07",
-        "description": "Amznprimea* Amznprimea Sydney South AU",
-        "amount": -9.99,
-        "balance": 28.05,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn-021",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 110,
-        "balance": 138.05,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-022",
-        "date": "2026-02-07",
-        "description": "Atlas Fuel Wanneroo Wanneroo AU",
-        "amount": -109.81,
-        "balance": 28.24,
-        "category": "Fuel",
-        "type": "debit"
-      },
-      {
-        "id": "txn-023",
-        "date": "2026-02-07",
-        "description": "Payment from Ajahna G Lillee",
-        "amount": 30,
-        "balance": 58.24,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn-024",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 30,
-        "balance": 88.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-025",
-        "date": "2026-02-07",
-        "description": "Payment from Ajahna G Lillee",
-        "amount": 30,
-        "balance": 118.24,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn-026",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 60,
-        "balance": 178.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-027",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 100,
-        "balance": 278.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-028",
-        "date": "2026-02-07",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 328.24,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-029",
-        "date": "2026-02-07",
-        "description": "Payment to 086-412 241337683 Kara St",
-        "amount": -165,
-        "balance": 163.24,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-030",
-        "date": "2026-02-08",
-        "description": "Microsoft*store Msbill.info AU",
-        "amount": -59.95,
-        "balance": 103.29,
-        "category": "Software & Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-031",
-        "date": "2026-02-08",
-        "description": "Bws Liquor/whitfords Cty Hillarys AU",
-        "amount": -31,
-        "balance": 72.29,
-        "category": "Alcohol & Liquor",
-        "type": "debit"
-      },
-      {
-        "id": "txn-032",
-        "date": "2026-02-08",
-        "description": "Xing Da WA Pty Ltd Hillarys AU",
-        "amount": -8.06,
-        "balance": 64.23,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-033",
-        "date": "2026-02-08",
-        "description": "Sp Doughstreet Balcatta AU",
-        "amount": -16.72,
-        "balance": 47.51,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-034",
-        "date": "2026-02-08",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 97.51,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-035",
-        "date": "2026-02-09",
-        "description": "Sq *Perth Festival Casa Mcanning Vale AU",
-        "amount": -4.5,
-        "balance": 93.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn-036",
-        "date": "2026-02-09",
-        "description": "Sq *Perth Festival Menora AU",
-        "amount": -8,
-        "balance": 85.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn-037",
-        "date": "2026-02-09",
-        "description": "Stan.com.AU\\",
-        "amount": -22,
-        "balance": 63.01,
-        "category": "Entertainment",
-        "type": "debit"
-      },
-      {
-        "id": "txn-038",
-        "date": "2026-02-10",
-        "description": "Aldi Stores Currambine AU",
-        "amount": -49.42,
-        "balance": 13.59,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-039",
-        "date": "2026-02-11",
-        "description": "Direct Credit CBA - Wemoney Salary",
-        "amount": 2314.61,
-        "balance": 2328.2,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn-040",
-        "date": "2026-02-12",
-        "description": "Custom Offroad\\",
-        "amount": -462,
-        "balance": 1866.2,
-        "category": "Automotive",
-        "type": "debit"
-      },
-      {
-        "id": "txn-041",
-        "date": "2026-02-12",
-        "description": "Transfer",
-        "amount": -1000,
-        "balance": 866.2,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-042",
-        "date": "2026-02-12",
-        "description": "Chemist Warehouse Perth City Centre Perth AU",
-        "amount": -32.12,
-        "balance": 834.08,
-        "category": "Health & Pharmacy",
-        "type": "debit"
-      },
-      {
-        "id": "txn-043",
-        "date": "2026-02-13",
-        "description": "Transfer",
-        "amount": -150,
-        "balance": 684.08,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-044",
-        "date": "2026-02-13",
-        "description": "Paddy Pallin \\Perth AU",
-        "amount": -52.85,
-        "balance": 631.23,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-045",
-        "date": "2026-02-14",
-        "description": "Ryu Bento Currambine AU",
-        "amount": -36.5,
-        "balance": 594.73,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-046",
-        "date": "2026-02-14",
-        "description": "Sp Floraly Alexandria AU",
-        "amount": -128.95,
-        "balance": 465.78,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-047",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -98.68,
-        "balance": 367.1,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-048",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -24.29,
-        "balance": 342.81,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-049",
-        "date": "2026-02-15",
-        "description": "Lils Rooftop & Bar Perth AU",
-        "amount": -23.28,
-        "balance": 319.53,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-050",
-        "date": "2026-02-15",
-        "description": "Grilld Currambine Carrumbine AU",
-        "amount": -47.3,
-        "balance": 272.23,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-051",
-        "date": "2026-02-16",
-        "description": "Sp Milligram Melbourne AU",
-        "amount": -43.99,
-        "balance": 228.24,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-052",
-        "date": "2026-02-16",
-        "description": "Jindalee Beach Shack Jindalee AU",
-        "amount": -6.57,
-        "balance": 221.67,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-053",
-        "date": "2026-02-17",
-        "description": "Didimobility Sydney AU",
-        "amount": -17.18,
-        "balance": 204.49,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn-054",
-        "date": "2026-02-17",
-        "description": "Cpp Elder Street Perth AU",
-        "amount": -5.05,
-        "balance": 199.44,
-        "category": "Parking",
-        "type": "debit"
-      },
-      {
-        "id": "txn-055",
-        "date": "2026-02-17",
-        "description": "Transfer",
-        "amount": 1400,
-        "balance": 1599.44,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-056",
-        "date": "2026-02-17",
-        "description": "West Australian Marathon Club Inc\\burswo",
-        "amount": -76.62,
-        "balance": 1522.82,
-        "category": "Recreation",
-        "type": "debit"
-      },
-      {
-        "id": "txn-057",
-        "date": "2026-02-18",
-        "description": "Refund From Sp Floraly Alexandria AU",
-        "amount": 128.95,
-        "balance": 1651.77,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "txn-058",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -9.99,
-        "balance": 1641.78,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn-059",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -11.1,
-        "balance": 1630.68,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn-060",
-        "date": "2026-02-18",
-        "description": "Didimobility Sydney AU",
-        "amount": -0.61,
-        "balance": 1630.07,
-        "category": "Transport",
-        "type": "debit"
-      },
-      {
-        "id": "txn-061",
-        "date": "2026-02-18",
-        "description": "Direct Credit Mcnaughtans Pty - Mcnaughtans Refund",
-        "amount": 179.5,
-        "balance": 1809.57,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "txn-062",
-        "date": "2026-02-18",
-        "description": "Transfer",
-        "amount": -280.33,
-        "balance": 1529.24,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-063",
-        "date": "2026-02-19",
-        "description": "Serptag London Gb",
-        "amount": -9.64,
-        "balance": 1519.6,
-        "category": "Software & Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-064",
-        "date": "2026-02-19",
-        "description": "Transfer",
-        "amount": -118.42,
-        "balance": 1401.18,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-065",
-        "date": "2026-02-19",
-        "description": "Transfer",
-        "amount": 300,
-        "balance": 1701.18,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-066",
-        "date": "2026-02-20",
-        "description": "Al Wanneroo Pty Ltd Wangara AU",
-        "amount": -1302.6,
-        "balance": 398.58,
-        "category": "Automotive",
-        "type": "debit"
-      },
-      {
-        "id": "txn-067",
-        "date": "2026-02-20",
-        "description": "Sushia (Cloisters) Perth AU",
-        "amount": -9.08,
-        "balance": 389.5,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-068",
-        "date": "2026-02-20",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -17,
-        "balance": 372.5,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-069",
-        "date": "2026-02-20",
-        "description": "Coles 0481 Perth AU",
-        "amount": -9,
-        "balance": 363.5,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-070",
-        "date": "2026-02-20",
-        "description": "Transfer",
-        "amount": 20,
-        "balance": 383.5,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-071",
-        "date": "2026-02-21",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 370,
-        "category": "Business Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-072",
-        "date": "2026-02-21",
-        "description": "Dan Murphy S/401 Scarboroinnaloo AU",
-        "amount": -26.49,
-        "balance": 343.51,
-        "category": "Alcohol & Liquor",
-        "type": "debit"
-      },
-      {
-        "id": "txn-073",
-        "date": "2026-02-21",
-        "description": "The Athletes Foot Joondalup Dc AU",
-        "amount": -269.99,
-        "balance": 73.52,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-074",
-        "date": "2026-02-21",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 123.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-075",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 173.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-076",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 20,
-        "balance": 193.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-077",
-        "date": "2026-02-22",
-        "description": "Transfer",
-        "amount": 50,
-        "balance": 243.52,
-        "category": "Transfer",
-        "type": "credit"
-      },
-      {
-        "id": "txn-078",
-        "date": "2026-02-23",
-        "description": "Sq *Bennies By The Beach Marmion AU",
-        "amount": -8.64,
-        "balance": 234.88,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-079",
-        "date": "2026-02-23",
-        "description": "Uniqlo Joondalup Joondalup AU",
-        "amount": -59.8,
-        "balance": 175.08,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-080",
-        "date": "2026-02-24",
-        "description": "Refund From The Athletes Foot Joondalup Dc AU",
-        "amount": 269.99,
-        "balance": 445.07,
-        "category": "Refund",
-        "type": "credit"
-      },
-      {
-        "id": "txn-081",
-        "date": "2026-02-24",
-        "description": "McDonald's Innaloo Innaloo AU",
-        "amount": -15.2,
-        "balance": 429.87,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-082",
-        "date": "2026-02-24",
-        "description": "Aldi Stores Joondalup AU",
-        "amount": -40.87,
-        "balance": 389,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-083",
-        "date": "2026-02-24",
-        "description": "Burk Alkimos Alkimos AU",
-        "amount": -104.87,
-        "balance": 284.13,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-084",
-        "date": "2026-02-25",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -17,
-        "balance": 267.13,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-085",
-        "date": "2026-02-25",
-        "description": "Ass Enterprise Pty Ltd Perth AU",
-        "amount": -13.5,
-        "balance": 253.63,
-        "category": "Business Services",
-        "type": "debit"
-      },
-      {
-        "id": "txn-086",
-        "date": "2026-02-25",
-        "description": "Hy Carillon Perth AU",
-        "amount": -216.99,
-        "balance": 36.64,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-087",
-        "date": "2026-02-25",
-        "description": "Direct Credit CBA - Wemoney Salary",
-        "amount": 2314.62,
-        "balance": 2351.26,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn-088",
-        "date": "2026-02-25",
-        "description": "Payment to 013-943 612169222 Airwall",
-        "amount": -1000,
-        "balance": 1351.26,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-089",
-        "date": "2026-02-25",
-        "description": "Payment to 013-943 612169222 Airwall",
-        "amount": -851.26,
-        "balance": 500,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-090",
-        "date": "2026-02-26",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -24.09,
-        "balance": 475.91,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-091",
-        "date": "2026-02-26",
-        "description": "Payment from GEORGE DOBSON-BROWN",
-        "amount": 500,
-        "balance": 975.91,
-        "category": "Income",
-        "type": "credit"
-      },
-      {
-        "id": "txn-092",
-        "date": "2026-02-27",
-        "description": "Payment to A G Lillee",
-        "amount": -210,
-        "balance": 765.91,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-093",
-        "date": "2026-02-28",
-        "description": "Payment to 014-111 158266255 DOBSON-",
-        "amount": -35,
-        "balance": 730.91,
-        "category": "Transfer",
-        "type": "debit"
-      },
-      {
-        "id": "txn-094",
-        "date": "2026-02-28",
-        "description": "Amazon Marketplace AU Sydney AU",
-        "amount": -128.7,
-        "balance": 602.21,
-        "category": "Shopping",
-        "type": "debit"
-      },
-      {
-        "id": "txn-095",
-        "date": "2026-02-28",
-        "description": "Beaumaris IGA Ocean Reef AU",
-        "amount": -15.45,
-        "balance": 586.76,
-        "category": "Groceries",
-        "type": "debit"
-      },
-      {
-        "id": "txn-096",
-        "date": "2026-02-28",
-        "description": "Transperth Parking Perth AU",
-        "amount": -2,
-        "balance": 584.76,
-        "category": "Parking",
-        "type": "debit"
-      },
-      {
-        "id": "txn-097",
-        "date": "2026-02-28",
-        "description": "The Generous Squire Perth AU",
-        "amount": -10.12,
-        "balance": 574.64,
-        "category": "Food & Dining",
-        "type": "debit"
-      },
-      {
-        "id": "txn-098",
-        "date": "2026-02-28",
-        "description": "Zlr*asaka Sushi Perth AU",
-        "amount": -20.55,
-        "balance": 554.09,
-        "category": "Food & Dining",
-        "type": "debit"
-      }
-    ],
-    "totalCredits": 10594.1,
-    "totalDebits": 10195.92,
-    "sourceFile": "SpendAccount-3579_2026-02.pdf",
-    "createdAt": "2026-03-19T14:01:26.210Z",
-    "updatedAt": "2026-03-19T14:01:26.210Z"
+    "id": "a50a4f63-bdfa-48b2-913a-5c45e1fc7e4d",
+    "sourceFile": "ubank-spend-account-statement-april-2026-sample.pdf",
+    "createdAt": "2026-04-12T02:07:30.663Z",
+    "updatedAt": "2026-04-12T02:07:30.663Z"
   }
 ]

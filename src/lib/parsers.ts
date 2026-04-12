@@ -1,11 +1,11 @@
 import { type AIConfig, generateObjectFromPDF, generateTextFromPDFFast } from "./ai";
 import {
-  type BankStatement,
-  BankStatementSchema,
+  type BankStatementExtraction,
+  BankStatementExtractionSchema,
   type DocumentType,
   DocumentTypeSchema,
-  type Payslip,
-  PayslipSchema,
+  type PayslipExtraction,
+  PayslipExtractionSchema,
 } from "./schema";
 
 // ============================================
@@ -70,8 +70,11 @@ Important:
 - include ALL earnings and deduction line items
 - if a field is not present, omit it rather than guessing`;
 
-export async function parsePayslip(pdfBase64: string, config: AIConfig): Promise<Payslip> {
-  return generateObjectFromPDF(config, pdfBase64, PAYSLIP_PROMPT, PayslipSchema);
+export async function parsePayslip(
+  pdfBase64: string,
+  config: AIConfig,
+): Promise<PayslipExtraction> {
+  return generateObjectFromPDF(config, pdfBase64, PAYSLIP_PROMPT, PayslipExtractionSchema);
 }
 
 // ============================================
@@ -105,10 +108,16 @@ Important:
 export async function parseBankStatement(
   pdfBase64: string,
   config: AIConfig,
-): Promise<BankStatement> {
-  return generateObjectFromPDF(config, pdfBase64, BANK_STATEMENT_PROMPT, BankStatementSchema, {
-    maxTokens: 8192,
-  });
+): Promise<BankStatementExtraction> {
+  return generateObjectFromPDF(
+    config,
+    pdfBase64,
+    BANK_STATEMENT_PROMPT,
+    BankStatementExtractionSchema,
+    {
+      maxTokens: 16384,
+    },
+  );
 }
 
 // ============================================
@@ -117,15 +126,19 @@ export async function parseBankStatement(
 
 export type ParsedDocument =
   | { type: "tax-return"; data: unknown }
-  | { type: "payslip"; data: Payslip }
-  | { type: "bank-statement"; data: BankStatement };
+  | { type: "payslip"; data: PayslipExtraction }
+  | { type: "bank-statement"; data: BankStatementExtraction };
+
+export type ParsedSupportedDocument =
+  | { type: "payslip"; data: PayslipExtraction }
+  | { type: "bank-statement"; data: BankStatementExtraction };
 
 export async function parseDocument(
   pdfBase64: string,
   apiKey: string,
   documentType?: DocumentType,
   provider: string = "vercel",
-): Promise<{ type: DocumentType; data: Payslip | BankStatement }> {
+): Promise<ParsedSupportedDocument> {
   const config: AIConfig = {
     provider: provider as AIConfig["provider"],
     apiKey,

@@ -35,7 +35,7 @@ const eslintConfig = [
     },
   },
   {
-    ignores: ["dist/", "electron/", "scripts/", "node_modules/", "resources/"],
+    ignores: [".context/", "dist/", "electron/", "scripts/", "node_modules/", "resources/"],
   },
 ];
 
