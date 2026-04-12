@@ -460,6 +460,15 @@ export const PayslipSchema = z.object({
 
 export type Payslip = z.infer<typeof PayslipSchema>;
 
+export const PayslipExtractionSchema = PayslipSchema.omit({
+  id: true,
+  sourceFile: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type PayslipExtraction = z.infer<typeof PayslipExtractionSchema>;
+
 // ============================================
 // BANK STATEMENT
 // ============================================
@@ -477,6 +486,12 @@ export const BankTransactionSchema = z.object({
 });
 
 export type BankTransaction = z.infer<typeof BankTransactionSchema>;
+
+export const BankTransactionExtractionSchema = BankTransactionSchema.omit({
+  id: true,
+});
+
+export type BankTransactionExtraction = z.infer<typeof BankTransactionExtractionSchema>;
 
 export const BankStatementSchema = z.object({
   id: z.string(),
@@ -506,6 +521,18 @@ export const BankStatementSchema = z.object({
 });
 
 export type BankStatement = z.infer<typeof BankStatementSchema>;
+
+export const BankStatementExtractionSchema = BankStatementSchema.omit({
+  id: true,
+  transactions: true,
+  sourceFile: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  transactions: z.array(BankTransactionExtractionSchema),
+});
+
+export type BankStatementExtraction = z.infer<typeof BankStatementExtractionSchema>;
 
 // ============================================
 // DOCUMENT TYPE

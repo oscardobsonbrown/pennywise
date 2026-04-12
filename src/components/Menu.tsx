@@ -6,6 +6,7 @@ import {
   useCallback,
   useContext,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useSyncExternalStore,
@@ -86,7 +87,11 @@ function useHighlightStore() {
   }, []);
 
   const reset = useCallback(() => {
+    const prev = highlightedRef.current.size > 0;
     highlightedRef.current.clear();
+    if (prev) {
+      listenersRef.current.forEach((cb) => cb());
+    }
   }, []);
 
   return { subscribe, getHasHighlight, setHighlighted, reset };
@@ -150,10 +155,61 @@ export function Menu({
   );
 }
 
+interface MenuItemContentProps {
+  children: ReactNode;
+  ctx: MenuContextValue | null;
+  hasAnyHighlight: boolean;
+  isHighlighted: boolean;
+  itemId: string;
+  props: Record<string, unknown>;
+  selected?: boolean;
+}
+
+function MenuItemContent({
+  children,
+  ctx,
+  hasAnyHighlight,
+  isHighlighted,
+  itemId,
+  props,
+  selected,
+}: MenuItemContentProps) {
+  useLayoutEffect(() => {
+    if (!ctx) return;
+    ctx.setHighlighted(itemId, isHighlighted);
+    return () => ctx.setHighlighted(itemId, false);
+  }, [ctx, isHighlighted, itemId]);
+
+  // Show static background for selected items when nothing is highlighted
+  const showSelectedBackground = selected && !hasAnyHighlight && !isHighlighted;
+
+  return (
+    <div {...props}>
+      {/* Static background for selected items (no animation) */}
+      {showSelectedBackground && (
+        <div className="absolute inset-0 rounded-lg bg-(--color-bg-muted)" />
+      )}
+      {/* Animated highlight - only ONE of these exists at a time across all items */}
+      {isHighlighted && ctx && (
+        <motion.div
+          layoutId={ctx.layoutId}
+          className="absolute inset-0 rounded-lg bg-(--color-bg-muted)"
+          initial={false}
+          transition={{
+            type: "spring",
+            stiffness: 500,
+            damping: 35,
+          }}
+        />
+      )}
+      <span className="relative z-10 flex items-center gap-2.5">{children}</span>
+    </div>
+  );
+}
+
 export function MenuItem({ children, onClick, className, selected }: MenuItemProps) {
   const ctx = useContext(MenuContext);
   const itemId = useId();
-  const prevHighlightedRef = useRef(false);
 
   // Track if any item is highlighted (for showing selected state)
   const hasAnyHighlight = useSyncExternalStore(
@@ -169,36 +225,17 @@ export function MenuItem({ children, onClick, className, selected }: MenuItemPro
         const dataProps = props as Record<string, unknown>;
         const isHighlighted = dataProps["data-highlighted"] !== undefined;
 
-        // Synchronously update the external store when highlight changes
-        if (ctx && isHighlighted !== prevHighlightedRef.current) {
-          prevHighlightedRef.current = isHighlighted;
-          ctx.setHighlighted(itemId, isHighlighted);
-        }
-
-        // Show static background for selected items when nothing is highlighted
-        const showSelectedBackground = selected && !hasAnyHighlight && !isHighlighted;
-
         return (
-          <div {...props}>
-            {/* Static background for selected items (no animation) */}
-            {showSelectedBackground && (
-              <div className="absolute inset-0 rounded-lg bg-(--color-bg-muted)" />
-            )}
-            {/* Animated highlight - only ONE of these exists at a time across all items */}
-            {isHighlighted && ctx && (
-              <motion.div
-                layoutId={ctx.layoutId}
-                className="absolute inset-0 rounded-lg bg-(--color-bg-muted)"
-                initial={false}
-                transition={{
-                  type: "spring",
-                  stiffness: 500,
-                  damping: 35,
-                }}
-              />
-            )}
-            <span className="relative z-10 flex items-center gap-2.5">{children}</span>
-          </div>
+          <MenuItemContent
+            ctx={ctx}
+            hasAnyHighlight={hasAnyHighlight}
+            isHighlighted={isHighlighted}
+            itemId={itemId}
+            props={dataProps}
+            selected={selected}
+          >
+            {children}
+          </MenuItemContent>
         );
       }}
     />

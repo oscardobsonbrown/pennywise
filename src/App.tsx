@@ -228,6 +228,7 @@ export function App() {
   const [devUpdateOverride, setDevUpdateOverride] = useState<UpdateStatus | null>(null);
   const [activeTab, setActiveTab] = useState<ContentTab>("income");
   const [granularity, setGranularity] = useState<"month" | "week">("month");
+  const [dataResetVersion, setDataResetVersion] = useState(0);
   const updater = useElectronUpdater(devUpdateOverride);
 
   // Compute effective demo mode early (dev override takes precedence)
@@ -529,6 +530,7 @@ export function App() {
     setChatMessages([]);
     // Reset chat to open (default for new users)
     setIsChatOpen(true);
+    setDataResetVersion((version) => version + 1);
   }
 
   async function submitChatMessage(prompt: string) {
@@ -842,7 +844,9 @@ export function App() {
 
   return (
     <div className="flex h-screen">
-      <ErrorBoundary name="Main Panel">{renderMainPanel()}</ErrorBoundary>
+      <ErrorBoundary key={dataResetVersion} name="Main Panel">
+        {renderMainPanel()}
+      </ErrorBoundary>
 
       {shouldShowChat && isChatOpen && (
         <ErrorBoundary name="Chat">

@@ -288,6 +288,12 @@ export async function clearAllData(): Promise<void> {
     await Bun.write(BANK_STATEMENTS_FILE, "[]");
   }
 
+  // Clear transactions
+  const transactionsFile = Bun.file(TRANSACTIONS_FILE);
+  if (await transactionsFile.exists()) {
+    await Bun.write(TRANSACTIONS_FILE, "[]");
+  }
+
   // Clear API key from .env
   const envFile = Bun.file(ENV_FILE);
   if (await envFile.exists()) {
